@@ -35,7 +35,7 @@ class PaletteForm extends Component {
   }
 
   handleInputChange(e) {
-
+    this.setState({ [e.target.name]: e.target.value })
   }
 
   handleSubmit(e) {
@@ -49,7 +49,6 @@ class PaletteForm extends Component {
   render() {
     const { projects } = this.props;
     const { colors } = this.state;
-    // console.log(colors)
     const colorBtns = colors.map(color => {
       return <button
             key={color} 
@@ -79,7 +78,9 @@ class PaletteForm extends Component {
               className='createProject' 
               name='newProjectName'
               type='text' 
-              placeholder='Enter New Project Name'
+              value={this.newProjectName}
+              placeholder='Enter Project Name'
+              onChange={this.handleInputChange.bind(this)}
             />
             <button>Submit</button>
           </form>
@@ -97,7 +98,9 @@ class PaletteForm extends Component {
               className='createPalette'
               name='newPaletteName'
               type='text' 
+              value={this.newPaletteName}
               placeholder='Enter New Palette Name'
+              onChange={this.handleInputChange.bind(this)}
             />
             <button>Add</button>
           </form>
@@ -109,13 +112,3 @@ class PaletteForm extends Component {
 };
 
 export default PaletteForm;
-
-
-// <button 
-//             className='color' 
-//             backgroundColor: {`${colors[0]}`}
-//           >Color 1</button>
-//           <button className='color'>Color 2</button>
-//           <button className='color'>Color 3</button>
-//           <button className='color'>Color 4</button>
-//           <button className='color'>Color 5</button>
