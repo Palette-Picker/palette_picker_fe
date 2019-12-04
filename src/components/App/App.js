@@ -1,14 +1,31 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
+import Header from '../Header/Header'
 import './App.scss';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        
-      </header>
-    </div>
-  );
+
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      projects: []
+    }
+  }
+
+  // componentDidMount() {
+
+  // }
+
+  render() {
+
+    return (
+      <main>
+        <Header />
+
+      </main>
+
+    )
+  }
 }
 
 export default App;
