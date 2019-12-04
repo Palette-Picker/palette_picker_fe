@@ -24,8 +24,12 @@ class PaletteForm extends Component {
     return "#000000".replace(/0/g,() => {return (~~(Math.random()*16)).toString(16);});
   }
 
-  updateColors(e, num) {
-
+  updateColors(e) {
+    let colors = [];
+    while (colors.length < 5) {
+      colors.push(this.getRandomColor())
+    }
+    this.setState({ colors })
   }
 
   handleDropDownChange(e) {
@@ -69,7 +73,10 @@ class PaletteForm extends Component {
         <section className='color-section'>
           { colorBtns }
         </section>
-        <button className='random'>Randomize!</button>
+        <button 
+          className='random'
+          onClick={this.updateColors.bind(this)}
+        >Randomize!</button>
 
         <section className='forms'>
           <form>
