@@ -5,7 +5,13 @@ class PaletteForm extends Component {
   constructor() {
     super();
     this.state = {
-      colors: [],
+      colors: [
+        "#5c6f68",
+        "#8aa39b",
+        "#95d9c3",
+        "#a4f9c8",
+        "#a7fff6",
+      ],
       newProjectName: '',
       newPaletteName: '',
       selectedProjectName: ''
@@ -22,16 +28,28 @@ class PaletteForm extends Component {
   }
 
   render() {
+    const { projects } = this.props;
+    const { colors } = this.state;
+    // console.log(colors)
+    const colorBtns = colors.map(color => {
+      return <button
+            key={color} 
+            className='color' 
+            style={{backgroundColor: `${color}`}}
+          >{color.toUpperCase()}</button>
+    });
 
+    const projNames = projects.map(proj => {
+      return <option
+        key={proj.name}
+        value={proj.name}
+        >{proj.name}</option>
+    })
     return (
 
       <div>
         <section className='color-section'>
-          <div className='color'>Color 1</div>
-          <div className='color'>Color 2</div>
-          <div className='color'>Color 3</div>
-          <div className='color'>Color 4</div>
-          <div className='color'>Color 5</div>
+          { colorBtns }
         </section>
         <button className='random'>Randomize!</button>
 
@@ -58,7 +76,7 @@ class PaletteForm extends Component {
             <select
               value='Select an exsiting Project'
               onChange={this.updateDropdownChange}
-            >
+            >{ projNames }
             </select>
             <button>Add</button>
           </form>
@@ -70,3 +88,13 @@ class PaletteForm extends Component {
 };
 
 export default PaletteForm;
+
+
+// <button 
+//             className='color' 
+//             backgroundColor: {`${colors[0]}`}
+//           >Color 1</button>
+//           <button className='color'>Color 2</button>
+//           <button className='color'>Color 3</button>
+//           <button className='color'>Color 4</button>
+//           <button className='color'>Color 5</button>

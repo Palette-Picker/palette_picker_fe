@@ -11,28 +11,30 @@ class App extends Component {
     super();
     this.state = {
       projects: [],
-      error: ''
+      error: '',
+      isLoading: true
     }
   }
 
   async componentDidMount() {
     try {
       const projects = await getProjects();
-      this.setState({ projects })
+      this.setState({ projects, isLoading: false })
     } catch ({ message }) {
       this.setState({ error: message })
     }
   }
 
   render() {
-    const { projects, error } = this.state
+    const { projects, error, isLoading } = this.state
     console.log('state', projects)
     console.log('error', error)
+    console.log('loading', isLoading)
     return (
       <div className='App'>
         <Header />
         <main>
-          <Route exact path='/' render={() => <PaletteForm />}/>
+          <Route exact path='/' render={() => <PaletteForm projects={projects}/>}/>
         </main>
       </div>
 
