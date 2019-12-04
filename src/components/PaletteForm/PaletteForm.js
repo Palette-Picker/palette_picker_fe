@@ -25,7 +25,7 @@ class PaletteForm extends Component {
 
     return (
 
-      <section>
+      <div>
         <section className='color-section'>
           <div className='color'>Color 1</div>
           <div className='color'>Color 2</div>
@@ -34,32 +34,36 @@ class PaletteForm extends Component {
           <div className='color'>Color 5</div>
         </section>
         <button className='random'>Randomize!</button>
-        <form>
-          <label htmlFor='newProjectName'>Create a Project</label>
-          <input 
-            className='createProject' 
-            name='newProjectName'
-            type='text' 
-            placeholder='Enter New Project Name'
-          />
-          <button>Submit</button>
-          <select
-            value='Select a Project'
-            onChange={this.updateDropdownChange}
-          >
-            
-          </select>
 
-          <label htmlFor='newPaletteName'>Palette Name</label>
-          <input 
-            className='createPalette'
-            name='newPaletteName'
-            type='text' 
-            placeholder='Enter New Palette Name'
-          />
-          <button>Add</button>
-        </form>
-      </section>
+        <section className='forms'>
+          <form>
+            <h3>Create a New Project</h3>
+            <input 
+              className='createProject' 
+              name='newProjectName'
+              type='text' 
+              placeholder='Enter New Project Name'
+            />
+            <button>Submit</button>
+          </form>
+          <form>
+            <h3>Add this Palette to a Project</h3>
+            <input 
+              className='createPalette'
+              name='newPaletteName'
+              type='text' 
+              placeholder='Enter New Palette Name'
+            />
+            <h4>or</h4>
+            <select
+              value='Select an exsiting Project'
+              onChange={this.updateDropdownChange}
+            >
+            </select>
+            <button>Add</button>
+          </form>
+        </section>
+      </div>
 
     )
   }
