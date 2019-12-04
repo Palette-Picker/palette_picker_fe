@@ -14,17 +14,19 @@ class PaletteForm extends Component {
       ],
       newProjectName: '',
       newPaletteName: '',
+      selectedProjectId: null,
       selectedProjectName: ''
     }
   }
 
-  // componentDidMount() {
-  //   // method for getting 5 random colors to set state
-  // }
+  componentDidMount() {
+    // method for getting 5 random colors to set state
+  }
 
-  updateDropdownChange(e) {
-    // add method for updating state
-    console.log('dropdown changed')
+  handleDropDownChange(e) {
+    // add error handling for not selected
+
+    this.setState({ selectedProjectId: e.target.value});
   }
 
   render() {
@@ -42,7 +44,7 @@ class PaletteForm extends Component {
     const projNames = projects.map(proj => {
       return <option
         key={proj.name}
-        value={proj.name}
+        value={proj.id}
         >{proj.name}</option>
     })
     return (
@@ -66,18 +68,20 @@ class PaletteForm extends Component {
           </form>
           <form>
             <h3>Add this Palette to a Project</h3>
+            <select
+              value={this.selectedProjectId}
+              defaultValue={'default'}
+              onChange={this.handleDropDownChange.bind(this)}
+            >
+            <option value='default' disabled>Choose a Project ...</option>
+            { projNames }
+            </select>
             <input 
               className='createPalette'
               name='newPaletteName'
               type='text' 
               placeholder='Enter New Palette Name'
             />
-            <h4>or</h4>
-            <select
-              value='Select an exsiting Project'
-              onChange={this.updateDropdownChange}
-            >{ projNames }
-            </select>
             <button>Add</button>
           </form>
         </section>
