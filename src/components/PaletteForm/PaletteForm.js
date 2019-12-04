@@ -5,28 +5,45 @@ class PaletteForm extends Component {
   constructor() {
     super();
     this.state = {
-      colors: [
-        "#5c6f68",
-        "#8aa39b",
-        "#95d9c3",
-        "#a4f9c8",
-        "#a7fff6",
-      ],
+      colors: [],
       newProjectName: '',
       newPaletteName: '',
       selectedProjectId: null,
-      selectedProjectName: ''
     }
   }
 
   componentDidMount() {
-    // method for getting 5 random colors to set state
+    let colors = [];
+    while (colors.length < 5) {
+      colors.push(this.getRandomColor())
+    }
+    this.setState({ colors })
+  }
+
+  getRandomColor() {
+    return "#000000".replace(/0/g,() => {return (~~(Math.random()*16)).toString(16);});
+  }
+
+  updateColors(e, num) {
+
   }
 
   handleDropDownChange(e) {
     // add error handling for not selected
 
     this.setState({ selectedProjectId: e.target.value});
+  }
+
+  handleInputChange(e) {
+
+  }
+
+  handleSubmit(e) {
+
+  }
+
+  handleAdd(e) {
+
   }
 
   render() {
