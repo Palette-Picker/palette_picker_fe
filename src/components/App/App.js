@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import Header from '../Header/Header'
+import Header from '../Header/Header';
+import PaletteForm from '../PaletteForm/PaletteForm';
 import './App.scss';
 
 
@@ -19,10 +20,12 @@ class App extends Component {
   render() {
 
     return (
-      <main>
+      <div className='App'>
         <Header />
-
-      </main>
+        <main>
+          <Route exact path='/' render={() => <PaletteForm />}/>
+        </main>
+      </div>
 
     )
   }
