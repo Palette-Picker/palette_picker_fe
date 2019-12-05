@@ -1,4 +1,18 @@
+.project-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.palette {
+  width: 85%;
+}
+
 .palette-color {
-  height: 50px;
-  width: 50px;
+  height: 75px;
+  width: 75px;
+}
+
+.five-colors {
+  display: flex;
 }

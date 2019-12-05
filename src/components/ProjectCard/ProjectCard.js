@@ -34,7 +34,7 @@ const ProjectCard = ({ project }) => {
     </section>
   })
   return (
-    <article>
+    <article className='project-card'>
       <h2>{project.name}</h2>
       { paletteCards }
     </article>

@@ -7,8 +7,7 @@ const ProjectsContainer = ({ projects }) => {
     return <ProjectCard key={project.id} project={project}/>
   })
   return (
-    <section>
-      <h2>Project Container</h2>
+    <section className='projects'>
       { projCards }
     </section>
   )
