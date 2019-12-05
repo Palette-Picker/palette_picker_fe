@@ -19,12 +19,7 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    try {
-      const projects = await getProjects();
-      this.setState({ projects, isLoading: false })
-    } catch ({ message }) {
-      this.setState({ error: message })
-    }
+    this.updateProjects();
   }
 
   updateProjects = async () => {
