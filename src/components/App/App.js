@@ -3,6 +3,8 @@ import { Route } from 'react-router-dom';
 import Header from '../Header/Header';
 import { getProjects } from '../../utils/apiCalls';
 import PaletteForm from '../PaletteForm/PaletteForm';
+import ProjectsContainer from '../ProjectsContainer/ProjectsContainer';
+
 import './App.scss';
 
 
@@ -35,6 +37,8 @@ class App extends Component {
         <Header />
         <main>
           <Route exact path='/' render={() => <PaletteForm projects={projects}/>}/>
+          <Route exact path='/projects' render={() => <ProjectsContainer projects={projects}/>}/>
+
         </main>
       </div>
 
