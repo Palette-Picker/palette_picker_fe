@@ -35,7 +35,7 @@ class App extends Component {
     const { projects, error, isLoading } = this.state
     console.log('state', projects)
     console.log('error', error)
-    console.log('loading', isLoading)
+    // console.log('loading', isLoading)
     return (
       <div className='App'>
         <Header />

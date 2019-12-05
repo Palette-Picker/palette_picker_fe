@@ -19,6 +19,9 @@ class PaletteForm extends Component {
     while (colors.length < 5) {
       colors.push(this.getRandomColor())
     }
+    colors = colors.map((color, i) => {
+      return { [`color${i + 1}`]: color, isLocked: false }
+    })
     this.setState({ colors })
   }
 
@@ -27,10 +30,20 @@ class PaletteForm extends Component {
   }
 
   updateColors = (e) => {
-    let colors = [];
-    while (colors.length < 5) {
-      colors.push(this.getRandomColor())
-    }
+    let { colors } = this.state;
+    colors = colors.map((color, i) => {
+      if (color.isLocked === false) {
+         return {
+          [`color${i + 1}`]: this.getRandomColor(), 
+          isLocked: false
+        }
+      } else {
+        return color
+      }
+    })
+    // while (colors.length < 5) {
+    //   colors.push(this.getRandomColor())
+    // }
     this.setState({ colors })
   }
 
@@ -63,12 +76,14 @@ class PaletteForm extends Component {
   render() {
     const { projects } = this.props;
     const { colors } = this.state;
-    const colorBtns = colors.map(color => {
+    console.log('colors', colors)
+    const colorBtns = colors.map((color, i) => {
+      const hexCode = color[`color${i + 1}`]
       return <button
-            key={color} 
+            key={hexCode} 
             className='color' 
-            style={{backgroundColor: `${color}`}}
-          >{color.toUpperCase()}</button>
+            style={{backgroundColor: hexCode}}
+          >{hexCode.toUpperCase()}</button>
     });
 
     const projNames = projects.map(proj => {
