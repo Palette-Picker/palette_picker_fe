@@ -47,6 +47,24 @@ class PaletteForm extends Component {
     this.setState({ colors })
   }
 
+  toggleLock = (index) => {
+    console.log('in toggle index', index)
+    const { colors } = this.state;
+    const updatedColors = colors.map((color, i) => {
+      console.log('i', i)
+      console.log('index', index)
+      if (index === i){
+        return { 
+          [`color${i + 1}`]: color[`color${i + 1}`], 
+          isLocked: !color.isLocked
+        }
+      } else {
+        return color;
+      }
+    })
+    console.log(updatedColors)
+  }
+
   handleDropDownChange = (e) => {
     // add error handling for not selected
 
@@ -76,13 +94,13 @@ class PaletteForm extends Component {
   render() {
     const { projects } = this.props;
     const { colors } = this.state;
-    console.log('colors', colors)
     const colorBtns = colors.map((color, i) => {
-      const hexCode = color[`color${i + 1}`]
+      const hexCode = color[`color${i + 1}`];
       return <button
             key={hexCode} 
             className='color' 
             style={{backgroundColor: hexCode}}
+            onClick={() => this.toggleLock(i)}
           >{hexCode.toUpperCase()}</button>
     });
 
