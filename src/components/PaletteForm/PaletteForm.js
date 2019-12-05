@@ -46,10 +46,11 @@ class PaletteForm extends Component {
 
   handleSubmitProject = async (e) => {
     e.preventDefault();
+    const { updateProjects } = this.props;
     const { newProjectName } = this.state;
     try {
       await addProject(newProjectName);
-
+      updateProjects();
     } catch ({ error }) {
       this.setState({ error })
     }

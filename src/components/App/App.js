@@ -27,6 +27,15 @@ class App extends Component {
     }
   }
 
+  updateProjects = async () => {
+    try {
+      const projects = await getProjects();
+      this.setState({ projects, isLoading: false })
+    } catch ({ message }) {
+      this.setState({ error: message })
+    }
+  }
+
   render() {
     const { projects, error, isLoading } = this.state
     console.log('state', projects)
@@ -36,7 +45,7 @@ class App extends Component {
       <div className='App'>
         <Header />
         <main>
-          <Route exact path='/' render={() => <PaletteForm projects={projects}/>}/>
+          <Route exact path='/' render={() => <PaletteForm projects={projects} updateProjects={this.updateProjects}/>}/>
           <Route exact path='/projects' render={() => <ProjectsContainer projects={projects}/>}/>
 
         </main>
