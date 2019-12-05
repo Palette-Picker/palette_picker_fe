@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import Header from '../Header/Header';
+import { getProjects } from '../../utils/apiCalls';
 import PaletteForm from '../PaletteForm/PaletteForm';
 import './App.scss';
 
@@ -9,21 +10,31 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      projects: []
+      projects: [],
+      error: '',
+      isLoading: true
     }
   }
 
-  // componentDidMount() {
-
-  // }
+  async componentDidMount() {
+    try {
+      const projects = await getProjects();
+      this.setState({ projects, isLoading: false })
+    } catch ({ message }) {
+      this.setState({ error: message })
+    }
+  }
 
   render() {
-
+    const { projects, error, isLoading } = this.state
+    console.log('state', projects)
+    console.log('error', error)
+    console.log('loading', isLoading)
     return (
       <div className='App'>
         <Header />
         <main>
-          <Route exact path='/' render={() => <PaletteForm />}/>
+          <Route exact path='/' render={() => <PaletteForm projects={projects}/>}/>
         </main>
       </div>
 
