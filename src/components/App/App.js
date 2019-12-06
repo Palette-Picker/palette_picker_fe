@@ -19,6 +19,10 @@ class App extends Component {
   }
 
   async componentDidMount() {
+    this.updateProjects();
+  }
+
+  updateProjects = async () => {
     try {
       const projects = await getProjects();
       this.setState({ projects, isLoading: false })
@@ -31,12 +35,12 @@ class App extends Component {
     const { projects, error, isLoading } = this.state
     console.log('state', projects)
     console.log('error', error)
-    console.log('loading', isLoading)
+    // console.log('loading', isLoading)
     return (
       <div className='App'>
         <Header />
         <main>
-          <Route exact path='/' render={() => <PaletteForm projects={projects}/>}/>
+          <Route exact path='/' render={() => <PaletteForm projects={projects} updateProjects={this.updateProjects}/>}/>
           <Route exact path='/projects' render={() => <ProjectsContainer projects={projects}/>}/>
 
         </main>

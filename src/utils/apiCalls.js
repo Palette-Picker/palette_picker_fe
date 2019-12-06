@@ -10,3 +10,21 @@ export const getProjects = async () => {
   return projects;
 };
 
+export const addProject = async (newProject) => {
+  const options = {
+    method: 'POST',
+    body: JSON.stringify({
+      name: newProject
+    }),
+    headers: {
+      'content-type': 'application/json'
+    }
+  };
+  const response = await fetch(`${baseUrl}/projects`, options);
+  if (!response.ok) {
+    throw Error('Unable to add project.')
+  };
+  const addedProject = await response.json()
+  console.log('added in apiCalls', addedProject)
+};
+
