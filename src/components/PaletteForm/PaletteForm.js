@@ -41,9 +41,7 @@ class PaletteForm extends Component {
         return color
       }
     })
-    // while (colors.length < 5) {
-    //   colors.push(this.getRandomColor())
-    // }
+
     this.setState({ colors })
   }
 
