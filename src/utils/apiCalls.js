@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:3001/api/v1';
+const baseUrl = 'https://palette-picker-1906-be.herokuapp.com/api/v1';
 
 export const getProjects = async () => {
   const response = await fetch(`${baseUrl}/projects`)
