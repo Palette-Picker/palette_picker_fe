@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { addProject } from '../../utils/apiCalls';
+import { addProject, addPalette } from '../../utils/apiCalls';
 import './PaletteForm.scss';
 
 class PaletteForm extends Component {
@@ -79,11 +79,35 @@ class PaletteForm extends Component {
       updateProjects();
     } catch ({ error }) {
       this.setState({ error })
-    }
+    };
+    this.clearInputs();
   }
 
-  handleAddPalette = (e) => {
+  handleAddPalette = async (e) => {
+    e.preventDefault();
+    const { updateProjects } = this.props;
+    const { colors, newPaletteName,
+      selectedProjectId } = this.state;
+    const newPalette = {
+      name: newPaletteName,
+      color1: colors[0].color1,
+      color2: colors[1].color2,
+      color3: colors[2].color3,
+      color4: colors[3].color4,
+      color5: colors[4].color5,
+      project_id: selectedProjectId
+    };
+    try {
+      await addPalette(newPalette)
+      updateProjects();
+    } catch ({ error }) {
+      this.setState({ error })
+    };
+    this.clearInputs();
+  }
 
+  clearInputs = () => {
+    this.setState({  newPaletteName: '', newProjectName: '' })
   }
 
   render() {
@@ -151,7 +175,9 @@ class PaletteForm extends Component {
               placeholder='Enter New Palette Name'
               onChange={this.handleInputChange}
             />
-            <button>Add</button>
+            <button
+              onClick={this.handleAddPalette}
+            >Add</button>
           </form>
         </section>
       </div>
