@@ -52,3 +52,68 @@ export const addPalette = async (newPalette) => {
     return addedPalette;
 };
 
+export const deletePalette = async (paletteId) => {
+  const options = {
+    method: 'DELETE',
+    headers: {
+      'content-type': 'application/json'
+    }
+  };
+  const response = await fetch(`${baseUrl}/palettes/${paletteId}`, options);
+  if (!response.ok) {
+    throw Error('Unable to delete the palette.')
+  };
+  const message = await response.json();
+  return message;
+};
+
+export const deleteProject = async (projectId) => {
+  const options = {
+    method: 'DELETE',
+    headers: {
+      'content-type': 'application/json'
+    }
+  };
+  const response = await fetch(`${baseUrl}/projects/${projectId}`, options);
+  if (!response.ok) {
+    throw Error('Unable to delete the project and its palettes.')
+  };
+  const message = await response.json();
+  return message;
+};
+
+export const editProject = async (projectId, newName) => {
+  const options = {
+    method: 'PATCH',
+    body: {
+      name: newName
+    },
+    headers: {
+      'content-type': 'application/json'
+    }
+  };
+  const response = await fetch(`${baseUrl}/projects/${projectId}`, options);
+  if (!response.ok) {
+    throw Error('Unable to rename the project. Try again later.')
+  };
+  const message = await response.json();
+  return message;
+};
+
+export const editPalette = async (palette) => {
+  const options = {
+    method: 'PATCH',
+    body: {
+      palette
+    },
+    headers: {
+      'content-type': 'application/json'
+    }
+  };
+  const response = await fetch(`${baseUrl}/projects/${palette.id}`, options);
+  if (!response.ok) {
+    throw Error('Unable to edit palette. Try again later.')
+  }
+  const message = await response.json()
+  return message;
+};
