@@ -13,8 +13,7 @@ class App extends Component {
     super();
     this.state = {
       projects: [],
-      error: '',
-      isLoading: true
+      error: ''
     }
   }
 
@@ -25,26 +24,22 @@ class App extends Component {
   updateProjects = async () => {
     try {
       const projects = await getProjects();
-      this.setState({ projects, isLoading: false })
+      this.setState({ projects })
     } catch ({ message }) {
       this.setState({ error: message })
     }
   }
 
   render() {
-    const { projects, error, isLoading } = this.state
-    console.log('state', projects)
-    console.log('error', error)
+    const { projects, error } = this.state
     return (
       <div className='App'>
         <Header />
         <main>
           <Route exact path='/' render={() => <PaletteForm projects={projects} updateProjects={this.updateProjects}/>}/>
           <Route exact path='/projects' render={() => <ProjectsContainer projects={projects}/>}/>
-
         </main>
       </div>
-
     )
   }
 }

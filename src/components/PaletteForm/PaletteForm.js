@@ -76,11 +76,10 @@ class PaletteForm extends Component {
     const { newProjectName } = this.state;
     try {
       await addProject(newProjectName);
-      updateProjects();
+      await updateProjects();
     } catch ({ error }) {
       this.setState({ error })
     };
-    this.clearInputs();
   }
 
   handleAddPalette = async (e) => {
@@ -99,15 +98,14 @@ class PaletteForm extends Component {
     };
     try {
       await addPalette(newPalette)
-      updateProjects();
+      await updateProjects();
     } catch ({ error }) {
       this.setState({ error })
     };
-    this.clearInputs();
   }
 
   clearInputs = () => {
-    this.setState({  newPaletteName: '', newProjectName: '' })
+
   }
 
   render() {
