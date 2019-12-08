@@ -77,6 +77,7 @@ class PaletteForm extends Component {
     try {
       await addProject(newProjectName);
       await updateProjects();
+      this.clearInput('newProjectName');
     } catch ({ error }) {
       this.setState({ error })
     };
@@ -99,13 +100,16 @@ class PaletteForm extends Component {
     try {
       await addPalette(newPalette)
       await updateProjects();
+      this.clearInput('newPaletteName');
     } catch ({ error }) {
       this.setState({ error })
     };
   }
 
-  clearInputs = () => {
-
+  clearInput = (field) => {
+    this.setState({
+      [field]: ''
+    })
   }
 
   render() {
@@ -147,7 +151,7 @@ class PaletteForm extends Component {
               className='createProject' 
               name='newProjectName'
               type='text' 
-              value={this.newProjectName}
+              value={this.state.newProjectName}
               placeholder='Enter Project Name'
               onChange={this.handleInputChange}
             />
@@ -169,7 +173,7 @@ class PaletteForm extends Component {
               className='createPalette'
               name='newPaletteName'
               type='text' 
-              value={this.newPaletteName}
+              value={this.state.newPaletteName}
               placeholder='Enter New Palette Name'
               onChange={this.handleInputChange}
             />
