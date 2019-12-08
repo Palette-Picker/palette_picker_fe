@@ -82,7 +82,7 @@ export const deleteProject = async (projectId) => {
   return message;
 };
 
-export const editProject = async (id, newName) => {
+export const editProject = async (projectId, newName) => {
   const options = {
     method: 'PATCH',
     body: {
@@ -100,6 +100,20 @@ export const editProject = async (id, newName) => {
   return message;
 };
 
-export const editPalette = async (id, palette) => {
-
+export const editPalette = async (palette) => {
+  const options = {
+    method: 'PATCH',
+    body: {
+      palette
+    },
+    headers: {
+      'content-type': 'application/json'
+    }
+  };
+  const response = await fetch(`${baseUrl}/projects/${palette.id}`, options);
+  if (!response.ok) {
+    throw Error('Unable to edit palette. Try again later.')
+  }
+  const message = await response.json()
+  return message;
 };
