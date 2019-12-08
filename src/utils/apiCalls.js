@@ -83,7 +83,21 @@ export const deleteProject = async (projectId) => {
 };
 
 export const editProject = async (id, newName) => {
-
+  const options = {
+    method: 'PATCH',
+    body: {
+      name: newName
+    },
+    headers: {
+      'content-type': 'application/json'
+    }
+  };
+  const response = await fetch(`${baseUrl}/projects/${projectId}`, options);
+  if (!response.ok) {
+    throw Error('Unable to rename the project. Try again later.')
+  };
+  const message = await response.json();
+  return message;
 };
 
 export const editPalette = async (id, palette) => {
