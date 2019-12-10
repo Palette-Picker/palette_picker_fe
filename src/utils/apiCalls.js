@@ -46,7 +46,7 @@ export const addPalette = async (newPalette) => {
   };
     const response = await fetch(`${baseUrl}/palettes`, options);
     if (!response.ok) {
-      throw Error('Unable to add palette')
+      throw Error('Unable to add palette.')
     };
     const addedPalette = await response.json();
     return addedPalette;

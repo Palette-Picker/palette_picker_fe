@@ -93,7 +93,7 @@ describe('getProjects', () => {
     expect(getProjects()).rejects.toEqual(Error('Unable to get projects. Try again later.'));
   });
 
-  it('should throw and error if the server is down', () => {
+  it('should throw an error if the server is down', () => {
     window.fetch = jest.fn().mockImplementation(() => {
       return Promise.reject(Error('fetch failed'))
     });
@@ -138,14 +138,6 @@ describe('addProject', () => {
   });
 
   it.skip('should return an error with a 422 code if name is missing from request', () => {
-  //   const missingProjectName = '';
-  //   const options = {
-  //   method: 'POST',
-  //   body: JSON.stringify(),
-  //   headers: {
-  //     'content-type': 'application/json'
-  //   }
-  // };
     window.fetch = jest.fn().mockImplementation(() => {
       return Promise.resolve({
         ok: true,
@@ -167,11 +159,88 @@ describe('addProject', () => {
     expect(addProject(mockProjectName)).rejects.toEqual(Error('Unable to add project.'))
   });
 
-  it('should throw and error if the server is down', () => {
+  it('should throw an error if the server is down', () => {
     window.fetch = jest.fn().mockImplementation(() => {
       return Promise.reject(Error('fetch failed'))
     });
 
-    expect(addProject()).rejects.toEqual(Error('fetch failed'));
+    expect(addProject(mockProjectName)).rejects.toEqual(Error('fetch failed'));
+  });
+});
+
+describe('addPalette', () => {
+
+  const mockPalette = {
+    name: 'New Palette',
+    color1: '#123456',
+    color2: '#abcdef',
+    color3: '#789012',
+    color4: '#ghijkl',
+    color5: '#345678',
+    project_id: 19
+  };
+
+  const mockNewPalette = {
+    id: 31,
+    name: 'New Palette',
+    color1: '#123456',
+    color2: '#abcdef',
+    color3: '#789012',
+    color4: '#ghijkl',
+    color5: '#345678',
+    project_id: 19
+  };
+  const options = {
+    method: 'POST',
+    body: JSON.stringify({
+      name: mockPalette.name,
+      color1: mockPalette.color1,
+      color2: mockPalette.color2,
+      color3: mockPalette.color3,
+      color4: mockPalette.color4,
+      color5: mockPalette.color5,
+      project_id: mockPalette.project_id
+    }),
+    headers: {
+      'content-type': 'application/json'
+    }
+  };
+
+  beforeEach(() => {
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve(mockNewPalette)
+      })
+    });
+  });
+
+  it('should call addPalette with the correct url and options', () => {
+    addPalette(mockPalette);
+    expect(window.fetch).toHaveBeenCalledWith(`${baseUrl}/palettes`, options)
+  });
+
+  it('should return the added palette object', () => {
+    expect(addPalette(mockPalette)).resolves.toEqual(mockNewPalette);
+  });
+
+  it('should return an error if the response is not ok', () => {
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.resolve({
+        ok: false
+      })
+    });
+    expect(addPalette(mockPalette)).rejects.toEqual(Error('Unable to add palette.'));
+  });
+
+  it.skip('should return an error with a 422 status code if missing a required parameter', () => {
+  });
+
+  it('should throw an error if the server is down', () => {
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.reject(Error('fetch failed'))
+    });
+
+    expect(addPalette(mockPalette)).rejects.toEqual(Error('fetch failed'));
   });
 });
