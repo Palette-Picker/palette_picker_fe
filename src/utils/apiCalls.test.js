@@ -244,3 +244,103 @@ describe('addPalette', () => {
     expect(addPalette(mockPalette)).rejects.toEqual(Error('fetch failed'));
   });
 });
+
+describe('deletePalette', () => {
+  const mockId = 29;
+  const options = {
+    method: 'DELETE',
+    headers: {
+      'content-type': 'application/json'
+    }
+  };
+  const mockResponse = { id: mockId}
+
+  beforeEach(() => {
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve(mockResponse)
+      })
+    });
+  });
+
+  it('should call deletePalette with the correct url and options', () => {
+    deletePalette(mockId);
+    expect(window.fetch).toHaveBeenCalledWith(`${baseUrl}/palettes/${mockId}`, options);
+  });
+
+  it('should return the deleted palette\'s id', () => {
+    expect(deletePalette(mockId)).resolves.toEqual(mockResponse);
+  });
+
+  it('should return an error if the response is not ok', () => {
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.resolve({
+        ok: false
+      })
+    });
+    expect(deletePalette(mockId)).rejects.toEqual(Error('Unable to delete the palette.'));
+  });
+
+  it.skip('should return a 404 status code if the id is not found', () => {
+
+  });
+
+  it('should return and error if the server is down', () => {
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.reject(Error('failed to fetch'))
+    });
+    expect(deletePalette(mockId)).rejects.toEqual(Error('failed to fetch'));
+  });
+
+});
+
+describe('deleteProject', () => {
+  const mockId = 19;
+  const options = {
+    method: 'DELETE',
+    headers: {
+      'content-type': 'application/json'
+    }
+  };
+  const mockResponse = { id: mockId}
+
+  beforeEach(() => {
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve(mockResponse)
+      })
+    });
+  });
+
+  it('should call deleteProject with the correct url and options', () => {
+    deleteProject(mockId);
+    expect(window.fetch).toHaveBeenCalledWith(`${baseUrl}/projects/${mockId}`, options);
+  });
+
+  it('should return the deleted project\'s id', () => {
+    expect(deleteProject(mockId)).resolves.toEqual(mockResponse);
+  });
+
+  it('should return an error if the response is not ok', () => {
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.resolve({
+        ok: false
+      })
+    });
+    expect(deleteProject(mockId)).rejects.toEqual(Error('Unable to delete the project and its palettes.'));
+  });
+
+  it.skip('should return a 404 status code if the id is not found', () => {
+
+  });
+
+  it('should return and error if the server is down', () => {
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.reject(Error('failed to fetch'))
+    });
+    expect(deleteProject(mockId)).rejects.toEqual(Error('failed to fetch'));
+  });
+
+});
