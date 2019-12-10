@@ -344,3 +344,120 @@ describe('deleteProject', () => {
   });
 
 });
+
+describe('editProject', () => {
+  const mockId = 19;
+  const mockEditedName = 'Edited Name';
+  const options = {
+    method: 'PATCH',
+    body: JSON.stringify({
+      name: mockEditedName
+    }),
+    headers: {
+      'content-type': 'application/json'
+    }
+  };
+  const mockResponse = {
+    id: 19,
+    name: mockEditedName
+  };
+
+  beforeEach(() => {
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve(mockResponse)
+      })
+    });
+  });
+
+  it.skip('should call editProject with the correct url and options', () => {
+    editProject(mockId, mockEditedName);
+    expect(window.fetch).toHaveBeenCalledWith(`${baseUrl}/projects/${mockId}`, options);
+  });
+
+  it('should return the edited project', () => {
+    expect(editProject(mockId, mockEditedName)).resolves.toEqual(mockResponse);
+  });
+
+  it('should return an error if the response is not ok', () => {
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.resolve({
+        ok: false
+      })
+    });
+    expect(editProject(mockId, mockEditedName)).rejects.toEqual(Error('Unable to rename the project. Try again later.'));
+  });
+
+  it('should return an error if the server is down', () => {
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.reject(Error('failed to fetch'))
+    });
+    expect(editProject(mockId, mockEditedName)).rejects.toEqual(Error('failed to fetch'));
+  });
+
+});
+
+describe('editPalette', () => {
+  const mockEditedPalette = {
+    id: 29,
+    name: "Greens and Purples",
+    color1: "#82d173",
+    color2: "#abfaa9",
+    color3: "#abcdef",
+    color4: "#4c2c69",
+    color5: "#42253b",
+    project_id: 19
+  };
+  const options = {
+    method: 'PATCH',
+    body: JSON.stringify({
+      id: mockEditedPalette.id,
+      name: mockEditedPalette.name,
+      color1: mockEditedPalette.color1,
+      color1: mockEditedPalette.color1,
+      color1: mockEditedPalette.color1,
+      color1: mockEditedPalette.color1,
+      color1: mockEditedPalette.color1,
+      project_id: mockEditedPalette.project_id
+    }),
+    headers: {
+      'content-type': 'application/json'
+    }
+  };
+
+  beforeEach(() => {
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve(mockEditedPalette)
+      })
+    });
+  });
+
+  it.skip('should call editPalette with the correct url and options', () => {
+    editPalette(mockEditedPalette);
+    expect(window.fetch).toHaveBeenCalledWith(`${baseUrl}/palettes/${mockEditedPalette.id}`, options);
+  });
+
+  it('should return the edited palette', () => {
+    expect(editPalette(mockEditedPalette)).resolves.toEqual(mockEditedPalette);
+  });
+
+  it('should return an error if the response is not ok', () => {
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.resolve({
+        ok: false
+      })
+    });
+    expect(editPalette(mockEditedPalette)).rejects.toEqual(Error('Unable to edit palette. Try again later.'));
+  });
+
+  it('should return an error if the server is down', () => {
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.reject(Error('failed to fetch'))
+    });
+    expect(editPalette(mockEditedPalette)).rejects.toEqual(Error('failed to fetch'));
+  });
+
+});

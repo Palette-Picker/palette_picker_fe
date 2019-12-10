@@ -101,16 +101,24 @@ export const editProject = async (projectId, newName) => {
 };
 
 export const editPalette = async (changedPalette) => {
+  const { id, name, color1, color2, color3, color4, color5, project_id } = changedPalette;
   const options = {
     method: 'PATCH',
     body: {
-      changedPalette
+      id,
+      name,
+      color1,
+      color2,
+      color3,
+      color4,
+      color5,
+      project_id
     },
     headers: {
       'content-type': 'application/json'
     }
   };
-  const response = await fetch(`${baseUrl}/projects/${palette.id}`, options);
+  const response = await fetch(`${baseUrl}/palettes/${id}`, options);
   if (!response.ok) {
     throw Error('Unable to edit palette. Try again later.')
   }
