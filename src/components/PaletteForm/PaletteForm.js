@@ -3,10 +3,10 @@ import { addProject, addPalette } from '../../utils/apiCalls';
 import './PaletteForm.scss';
 
 class PaletteForm extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      colors: [],
+      colors: this.props.colors,
       newProjectName: '',
       newPaletteName: '',
       selectedProjectId: null,
@@ -15,14 +15,21 @@ class PaletteForm extends Component {
   }
 
   componentDidMount() {
-    let colors = [];
-    while (colors.length < 5) {
-      colors.push(this.getRandomColor())
+    this.colorCheck();
+  }
+
+  colorCheck = () => {
+    let { colors } = this.state;
+    console.log(colors)
+    if (colors.length < 5) {
+      while (colors.length < 5) {
+        colors.push(this.getRandomColor())
+      }
+      colors = colors.map((color, i) => {
+        return { [`color${i + 1}`]: color, isLocked: false }
+      })
+      this.setState({ colors })
     }
-    colors = colors.map((color, i) => {
-      return { [`color${i + 1}`]: color, isLocked: false }
-    })
-    this.setState({ colors })
   }
 
   getRandomColor() {
@@ -115,8 +122,10 @@ class PaletteForm extends Component {
   render() {
     const { projects } = this.props;
     const { colors } = this.state;
+    console.log(colors)
     const colorBtns = colors.map((color, i) => {
       const hexCode = color[`color${i + 1}`];
+      console.log(hexCode)
       return <button
             key={hexCode} 
             className='color' 
