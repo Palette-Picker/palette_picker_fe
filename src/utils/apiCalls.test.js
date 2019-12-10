@@ -137,19 +137,6 @@ describe('addProject', () => {
     expect(addProject(mockProjectName)).resolves.toEqual(mockNewProject);
   });
 
-  it.skip('should return an error with a 422 code if name is missing from request', () => {
-    window.fetch = jest.fn().mockImplementation(() => {
-      return Promise.resolve({
-        ok: true,
-        status: 422,
-        json: () => Promise.resolve({
-          status: 422
-        })
-      })
-    });
-    expect(addProject()).rejects.toEqual(Error('Required parameter of "name" is missing from request'))
-  });
-
   it('should throw an error if the response is not ok', () => {
     window.fetch = jest.fn().mockImplementation(() => {
       return Promise.resolve({
@@ -233,9 +220,6 @@ describe('addPalette', () => {
     expect(addPalette(mockPalette)).rejects.toEqual(Error('Unable to add palette.'));
   });
 
-  it.skip('should return an error with a 422 status code if missing a required parameter', () => {
-  });
-
   it('should throw an error if the server is down', () => {
     window.fetch = jest.fn().mockImplementation(() => {
       return Promise.reject(Error('fetch failed'))
@@ -280,10 +264,6 @@ describe('deletePalette', () => {
       })
     });
     expect(deletePalette(mockId)).rejects.toEqual(Error('Unable to delete the palette.'));
-  });
-
-  it.skip('should return a 404 status code if the id is not found', () => {
-
   });
 
   it('should return and error if the server is down', () => {
@@ -332,10 +312,6 @@ describe('deleteProject', () => {
     expect(deleteProject(mockId)).rejects.toEqual(Error('Unable to delete the project and its palettes.'));
   });
 
-  it.skip('should return a 404 status code if the id is not found', () => {
-
-  });
-
   it('should return and error if the server is down', () => {
     window.fetch = jest.fn().mockImplementation(() => {
       return Promise.reject(Error('failed to fetch'))
@@ -350,9 +326,9 @@ describe('editProject', () => {
   const mockEditedName = 'Edited Name';
   const options = {
     method: 'PATCH',
-    body: JSON.stringify({
+    body: {
       name: mockEditedName
-    }),
+    },
     headers: {
       'content-type': 'application/json'
     }
@@ -371,7 +347,7 @@ describe('editProject', () => {
     });
   });
 
-  it.skip('should call editProject with the correct url and options', () => {
+  it('should call editProject with the correct url and options', () => {
     editProject(mockId, mockEditedName);
     expect(window.fetch).toHaveBeenCalledWith(`${baseUrl}/projects/${mockId}`, options);
   });
@@ -411,16 +387,16 @@ describe('editPalette', () => {
   };
   const options = {
     method: 'PATCH',
-    body: JSON.stringify({
+    body: {
       id: mockEditedPalette.id,
       name: mockEditedPalette.name,
       color1: mockEditedPalette.color1,
-      color1: mockEditedPalette.color1,
-      color1: mockEditedPalette.color1,
-      color1: mockEditedPalette.color1,
-      color1: mockEditedPalette.color1,
+      color2: mockEditedPalette.color2,
+      color3: mockEditedPalette.color3,
+      color4: mockEditedPalette.color4,
+      color5: mockEditedPalette.color5,
       project_id: mockEditedPalette.project_id
-    }),
+    },
     headers: {
       'content-type': 'application/json'
     }
@@ -435,7 +411,7 @@ describe('editPalette', () => {
     });
   });
 
-  it.skip('should call editPalette with the correct url and options', () => {
+  it('should call editPalette with the correct url and options', () => {
     editPalette(mockEditedPalette);
     expect(window.fetch).toHaveBeenCalledWith(`${baseUrl}/palettes/${mockEditedPalette.id}`, options);
   });
