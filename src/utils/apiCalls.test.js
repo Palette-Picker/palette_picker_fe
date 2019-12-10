@@ -63,3 +63,41 @@ const mockProjects = [
 
 const baseUrl = 'https://palette-picker-1906-be.herokuapp.com/api/v1';
 
+describe('getProjects', () => {
+
+  beforeEach(() => {
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve(mockProjects)
+      })
+    });
+  });
+
+  it('should call getProjects with the correct url', () => {
+    getProjects();
+    expect(window.fetch).toHaveBeenCalledWith(`${baseUrl}/projects`)
+  });
+
+  it('should return an array of projects with their palettes', () => {
+    expect(getProjects()).resolves.toEqual(mockProjects)
+  });
+
+  it('should throw an error if the response is not ok', () => {
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.resolve({
+        ok: false
+      })
+    });
+
+    expect(getProjects()).rejects.toEqual(Error('Unable to get projects. Try again later.'));
+  });
+
+  it('should throw and error if the server is down', () => {
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.reject(Error('fetch failed'))
+    });
+
+    expect(getProjects()).rejects.toEqual(Error('fetch failed'));
+  });
+});
