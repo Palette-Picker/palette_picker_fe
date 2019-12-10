@@ -101,3 +101,77 @@ describe('getProjects', () => {
     expect(getProjects()).rejects.toEqual(Error('fetch failed'));
   });
 });
+
+describe('addProject', () => {
+
+  const mockProjectName = 'New Project';
+  const mockNewProject = {
+    id: 33,
+    name: mockProjectName
+  };
+  const options = {
+    method: 'POST',
+    body: JSON.stringify({
+      name: mockProjectName
+    }),
+    headers: {
+      'content-type': 'application/json'
+    }
+  };
+
+  beforeEach(() => {
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve(mockNewProject)
+      })
+    });
+  });
+
+  it('should call addProject with the correct url and options', () => {
+    addProject(mockProjectName);
+    expect(window.fetch).toHaveBeenCalledWith(`${baseUrl}/projects`, options);
+  });
+
+  it('should return the added project object', () => {
+    expect(addProject(mockProjectName)).resolves.toEqual(mockNewProject);
+  });
+
+  it.skip('should return an error with a 422 code if name is missing from request', () => {
+  //   const missingProjectName = '';
+  //   const options = {
+  //   method: 'POST',
+  //   body: JSON.stringify(),
+  //   headers: {
+  //     'content-type': 'application/json'
+  //   }
+  // };
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.resolve({
+        ok: true,
+        status: 422,
+        json: () => Promise.resolve({
+          status: 422
+        })
+      })
+    });
+    expect(addProject()).rejects.toEqual(Error('Required parameter of "name" is missing from request'))
+  });
+
+  it('should throw an error if the response is not ok', () => {
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.resolve({
+        ok: false
+      })
+    });
+    expect(addProject(mockProjectName)).rejects.toEqual(Error('Unable to add project.'))
+  });
+
+  it('should throw and error if the server is down', () => {
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.reject(Error('fetch failed'))
+    });
+
+    expect(addProject()).rejects.toEqual(Error('fetch failed'));
+  });
+});
