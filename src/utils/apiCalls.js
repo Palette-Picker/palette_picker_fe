@@ -46,7 +46,7 @@ export const addPalette = async (newPalette) => {
   };
     const response = await fetch(`${baseUrl}/palettes`, options);
     if (!response.ok) {
-      throw Error('Unable to add palette')
+      throw Error('Unable to add palette.')
     };
     const addedPalette = await response.json();
     return addedPalette;
@@ -63,8 +63,8 @@ export const deletePalette = async (paletteId) => {
   if (!response.ok) {
     throw Error('Unable to delete the palette.')
   };
-  const message = await response.json();
-  return message;
+  const removedId = await response.json();
+  return removedId;
 };
 
 export const deleteProject = async (projectId) => {
@@ -78,8 +78,8 @@ export const deleteProject = async (projectId) => {
   if (!response.ok) {
     throw Error('Unable to delete the project and its palettes.')
   };
-  const message = await response.json();
-  return message;
+  const removedId = await response.json();
+  return removedId;
 };
 
 export const editProject = async (projectId, newName) => {
@@ -96,24 +96,32 @@ export const editProject = async (projectId, newName) => {
   if (!response.ok) {
     throw Error('Unable to rename the project. Try again later.')
   };
-  const message = await response.json();
-  return message;
+  const updatedProject = await response.json();
+  return updatedProject;
 };
 
-export const editPalette = async (palette) => {
+export const editPalette = async (changedPalette) => {
+  const { id, name, color1, color2, color3, color4, color5, project_id } = changedPalette;
   const options = {
     method: 'PATCH',
     body: {
-      palette
+      id,
+      name,
+      color1,
+      color2,
+      color3,
+      color4,
+      color5,
+      project_id
     },
     headers: {
       'content-type': 'application/json'
     }
   };
-  const response = await fetch(`${baseUrl}/projects/${palette.id}`, options);
+  const response = await fetch(`${baseUrl}/palettes/${id}`, options);
   if (!response.ok) {
     throw Error('Unable to edit palette. Try again later.')
   }
-  const message = await response.json()
-  return message;
+  const updatedPalette = await response.json()
+  return updatedPalette;
 };
