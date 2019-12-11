@@ -1,7 +1,6 @@
 const baseUrl = 'https://palette-picker-1906-be.herokuapp.com/api/v1';
 // const baseUrl = 'http://localhost:3001/api/v1';
 
-
 export const getProjects = async () => {
   const response = await fetch(`${baseUrl}/projects`)
 
@@ -120,7 +119,6 @@ export const editPalette = async (changedPalette) => {
       'content-type': 'application/json'
     }
   };
-  console.log(options)
   const response = await fetch(`${baseUrl}/palettes/${id}`, options);
   if (!response.ok) {
     throw Error('Unable to edit palette. Try again later.')
