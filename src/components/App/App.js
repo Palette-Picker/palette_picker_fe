@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 import ReactModal from 'react-modal';
 import Header from '../Header/Header';
-import { getProjects, deletePalette, editProject } from '../../utils/apiCalls';
+import { getProjects, deletePalette, editProject, deleteProject } from '../../utils/apiCalls';
 import PaletteForm from '../PaletteForm/PaletteForm';
 import ProjectsContainer from '../ProjectsContainer/ProjectsContainer';
 
@@ -117,6 +117,15 @@ class App extends Component {
     }
   }
 
+  handleProjectDelete = async (id) => {
+    try {
+      await deleteProject(id);
+      this.updateProjects();
+    } catch (error) {
+      this.setState({ error });
+    }
+  }
+
   passPaletteNameAndColors = (colors, project, paletteName, paletteId) => {
     this.setState({
       colors: colors,
@@ -187,6 +196,7 @@ class App extends Component {
           <Route exact path='/projects' render={() => <ProjectsContainer
             projects={this.state.projects}
             handleKeyPress={this.handleKeyPress}
+            handleProjectDelete={this.handleProjectDelete}
             handleModal={this.handleModal} />} />
         </main>
       </div>

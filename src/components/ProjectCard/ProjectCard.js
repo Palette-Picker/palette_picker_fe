@@ -1,7 +1,8 @@
 import React from 'react';
 import './ProjectCard.scss';
+import close from '../../images/close-icon-svg-4.jpg'
 
-const ProjectCard = ({ project, handleModal, handleKeyPress }) => {
+const ProjectCard = ({ project, handleModal, handleKeyPress, handleProjectDelete }) => {
   const { palettes } = project;
   const paletteCards = palettes.map(palette => {
     const { color1, color2, color3, color4, color5 } = palette;
@@ -61,8 +62,9 @@ const ProjectCard = ({ project, handleModal, handleKeyPress }) => {
   })
   return (
     <article className='project-card'>
+      <img className='img--close' src={close} onClick={() => handleProjectDelete(project.id)} />
       <h2 contenteditable="true" onKeyPress={(e) => handleKeyPress(e, project.id, e.target.innerText)}>{project.name}</h2>
-      { paletteCards }
+      {paletteCards}
     </article>
   )
 
