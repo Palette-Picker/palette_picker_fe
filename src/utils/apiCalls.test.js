@@ -327,9 +327,9 @@ describe('editProject', () => {
   const mockEditedName = 'Edited Name';
   const options = {
     method: 'PATCH',
-    body: {
+    body: JSON.stringify({
       name: mockEditedName
-    },
+    }),
     headers: {
       'content-type': 'application/json'
     }

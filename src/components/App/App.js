@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 import ReactModal from 'react-modal';
 import Header from '../Header/Header';
-import { getProjects, deletePalette } from '../../utils/apiCalls';
+import { getProjects, deletePalette, editProject } from '../../utils/apiCalls';
 import PaletteForm from '../PaletteForm/PaletteForm';
 import ProjectsContainer from '../ProjectsContainer/ProjectsContainer';
 
@@ -127,6 +127,14 @@ class App extends Component {
     });
   }
 
+  handleKeyPress = (e, id, name) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      editProject(id, name);
+      e.target.blur();
+    }
+  }
+
   render() {
     const { projects, colors, paletteId, paletteName, projectName, projectId } = this.state
     return (
@@ -178,6 +186,7 @@ class App extends Component {
           />} />
           <Route exact path='/projects' render={() => <ProjectsContainer
             projects={this.state.projects}
+            handleKeyPress={this.handleKeyPress}
             handleModal={this.handleModal} />} />
         </main>
       </div>
