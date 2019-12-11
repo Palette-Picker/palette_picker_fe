@@ -36,7 +36,17 @@ class App extends Component {
     }
   }
 
-  toggleModal = () => {
+  toggleModal = (e, colors, project, paletteName) => {
+    if (e.target.name === 'cancel') {
+      this.setState({
+        colors: [],
+        paletteName: '',
+        projectId: null,
+        projectName: ''
+      })
+    } else if (e.target.classList.contains('palette-color')) {
+      this.passPaletteNameAndColors(colors, project, paletteName)
+    }
     this.setState({
       modalOpen: !this.state.modalOpen
     })
@@ -75,9 +85,9 @@ class App extends Component {
         >
           <h2>Would you like to edit this palette?</h2>
           <button>
-            <Link to='/'>Yes</Link>
+            <Link onClick={e => this.toggleModal(e)} to='/' name='edit'>Yes</Link>
           </button>
-          <button>
+          <button name='cancel' onClick={e => this.toggleModal(e)}>
             Cancel
           </button>
         </ReactModal>       
@@ -93,7 +103,6 @@ class App extends Component {
           />} />
           <Route exact path='/projects' render={() => <ProjectsContainer
             projects={projects}
-            passPaletteNameAndColors={this.passPaletteNameAndColors}
             toggleModal={this.toggleModal} />} />
         </main>
       </div>

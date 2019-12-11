@@ -22,6 +22,7 @@ class PaletteForm extends Component {
   colorCheck = () => {
     let { colors } = this.state;
     if (colors.length < 5) {
+      console.log('running')
       while (colors.length < 5) {
         colors.push(this.getRandomColor())
       }
@@ -168,7 +169,7 @@ class PaletteForm extends Component {
           <form>
             <h3>Add this Palette to a Project</h3>
             <select
-              value={this.state.selectedProjectId}
+              // value={this.state.selectedProjectId || 'default'}
               defaultValue={this.state.oldProjectName || 'default'}
               onChange={(event) => this.handleDropDownChange(event)}
             >
