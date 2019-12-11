@@ -7,7 +7,6 @@ class PaletteForm extends Component {
     super(props);
     this.state = {
       newProjectName: '',
-      oldProjectName: this.props.oldProjectName || '',
       newPaletteName: this.props.newPaletteName || '',
       selectedProjectId: this.props.selectedProjectId || null,
       error: ''
@@ -36,7 +35,7 @@ class PaletteForm extends Component {
   }
 
   decidePalleteVerb = (e) => {
-    const { oldProjectName } = this.state;
+    const { oldProjectName } = this.props;
     if (oldProjectName) {
       this.handleUpdatePalette(e)
     } else {
@@ -44,15 +43,35 @@ class PaletteForm extends Component {
     }
   }
 
-  // handleUpdatePalette = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     await editPalette
-  //   }
-  // }
+  handleUpdatePalette = async (e) => {
+    const { updateProjects } = this.props;
+    e.preventDefault();
+     const { newPaletteName,
+      selectedProjectId } = this.state;
+    const { colors, paletteId } = this.props;
+    const alteredPalette = {
+      id: paletteId,
+      name: newPaletteName,
+      color1: colors[0].color1,
+      color2: colors[1].color2,
+      color3: colors[2].color3,
+      color4: colors[3].color4,
+      color5: colors[4].color5,
+      project_id: selectedProjectId
+    };
+    try {
+      await editPalette(alteredPalette);
+      await updateProjects();
+      this.clearInput('newPaletteName')
+      this.props.passPaletteNameAndColors(colors, '', null, '', null)
+    } catch (error) {
+      this.setState({ error });
+    }
+  }
 
   handleAddPalette = async (e) => {
     e.preventDefault();
+    console.log('post')
     const { updateProjects } = this.props;
     const { newPaletteName,
       selectedProjectId } = this.state;
@@ -82,8 +101,7 @@ class PaletteForm extends Component {
   }
 
   render() {
-    const { projects } = this.props;
-    const { colors } = this.props;
+    const { colors, oldProjectName, projects } = this.props;
     const colorBtns = colors.length ? colors.map((color, i) => {
       const hexCode = color[`color${i + 1}`];
       return <button
@@ -97,6 +115,7 @@ class PaletteForm extends Component {
 
     const projNames = projects.map(proj => {
       return <option
+        selected={proj.name === oldProjectName ? true : false}
         key={proj.name}
         value={proj.id}
         >{proj.name}</option>
@@ -131,10 +150,9 @@ class PaletteForm extends Component {
           <form>
             <h3>Add this Palette to a Project</h3>
             <select
-              defaultValue={this.state.oldProjectName || 'default'}
               onChange={(event) => this.handleDropDownChange(event)}
             >
-            <option value='default' disabled>Choose a Project ...</option>
+              <option value='default' selected={!oldProjectName ? true : false} disabled>Choose a Project ...</option>
             { projNames }
             </select>
             <input 

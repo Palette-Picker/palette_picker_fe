@@ -62,6 +62,7 @@ const mockProjects = [
   }];
 
 const baseUrl = 'https://palette-picker-1906-be.herokuapp.com/api/v1';
+// const baseUrl = 'http://localhost:3001/api/v1'
 
 describe('getProjects', () => {
 
@@ -387,7 +388,7 @@ describe('editPalette', () => {
   };
   const options = {
     method: 'PATCH',
-    body: {
+    body: JSON.stringify({
       id: mockEditedPalette.id,
       name: mockEditedPalette.name,
       color1: mockEditedPalette.color1,
@@ -396,7 +397,7 @@ describe('editPalette', () => {
       color4: mockEditedPalette.color4,
       color5: mockEditedPalette.color5,
       project_id: mockEditedPalette.project_id
-    },
+    }),
     headers: {
       'content-type': 'application/json'
     }

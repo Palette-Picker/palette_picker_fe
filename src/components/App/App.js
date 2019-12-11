@@ -42,7 +42,6 @@ class App extends Component {
     colorCheck = () => {
     let { colors } = this.state;
     if (colors.length < 5) {
-      console.log('running')
       while (colors.length < 5) {
         colors.push(this.getRandomColor())
       }
@@ -73,7 +72,7 @@ class App extends Component {
     console.log('here')
   }
 
-  toggleLock = (index) => {
+  toggleLock = async (index) => {
     const { colors } = this.state;
     const updatedColors = colors.map((color, i) => {
       if (index === i){
@@ -85,17 +84,19 @@ class App extends Component {
         return color;
       }
     })
-    this.setState({ colors: updatedColors})
+    await this.setState({ colors: updatedColors})
   }
 
-  handleModal = (e, colors, project, paletteName, paletteId) => {
+  handleModal = async (e, colors, project, paletteName, paletteId) => {
     if (e.target.name === 'cancel') {
-      this.setState({
+      await this.setState({
         colors: [],
         paletteName: '',
         projectId: null,
-        projectName: ''
+        projectName: '',
+        paletteId: null
       })
+      this.colorCheck();
     } else if (e.target.classList.contains('palette-color')) {
       this.passPaletteNameAndColors(colors, project, paletteName, paletteId)
     }
@@ -127,7 +128,7 @@ class App extends Component {
   }
 
   render() {
-    const { projects, error } = this.state
+    const { projects, colors, paletteId, paletteName, projectName, projectId } = this.state
     return (
       <div className='App'>
         <ReactModal
@@ -164,14 +165,16 @@ class App extends Component {
         <Header />
         <main>
           <Route exact path='/' render={() => <PaletteForm
-            colors={this.state.colors}
+            colors={colors}
+            passPaletteNameAndColors={this.passPaletteNameAndColors}
             updateColors={this.updateColors}
             toggleLock={this.toggleLock}
-            projects={this.state.projects}
+            projects={projects}
             updateProjects={this.updateProjects}
-            newPaletteName={this.state.paletteName}
-            oldProjectName={this.state.projectName}
-            selectedProjectId={this.state.projectId}
+            paletteId={paletteId}
+            newPaletteName={paletteName}
+            oldProjectName={projectName}
+            selectedProjectId={projectId}
           />} />
           <Route exact path='/projects' render={() => <ProjectsContainer
             projects={this.state.projects}
