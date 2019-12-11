@@ -34,7 +34,7 @@ const ProjectCard = ({ project, handleModal }) => {
       <h4>{palette.name}</h4>
       <div
         className='five-colors'
-        onClick={(e) => handleModal(e, paletteUnlocked, { id: project.id, name: project.name }, palette.name)}
+        onClick={(e) => handleModal(e, paletteUnlocked, { id: project.id, name: project.name }, palette.name, palette.id)}
       >
         <div 
           className='palette-color'

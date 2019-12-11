@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { addProject, addPalette } from '../../utils/apiCalls';
+import { addProject, addPalette, editPalette } from '../../utils/apiCalls';
 import './PaletteForm.scss';
 
 class PaletteForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      colors: this.props.colors,
       newProjectName: '',
       oldProjectName: this.props.oldProjectName || '',
       newPaletteName: this.props.newPaletteName || '',
@@ -15,61 +14,7 @@ class PaletteForm extends Component {
     }
   }
 
-  componentDidMount() {
-    this.colorCheck();
-  }
-
-  colorCheck = () => {
-    let { colors } = this.state;
-    if (colors.length < 5) {
-      console.log('running')
-      while (colors.length < 5) {
-        colors.push(this.getRandomColor())
-      }
-      colors = colors.map((color, i) => {
-        return { [`color${i + 1}`]: color, isLocked: false }
-      })
-      this.setState({ colors })
-    }
-  }
-
-  getRandomColor() {
-    return "#000000".replace(/0/g,() => {return (~~(Math.random()*16)).toString(16);});
-  }
-
-  updateColors = (e) => {
-    let { colors } = this.state;
-    colors = colors.map((color, i) => {
-      if (color.isLocked === false) {
-         return {
-          [`color${i + 1}`]: this.getRandomColor(), 
-          isLocked: false
-        }
-      } else {
-        return color
-      }
-    })
-
-    this.setState({ colors })
-  }
-
-  toggleLock = (index) => {
-    const { colors } = this.state;
-    const updatedColors = colors.map((color, i) => {
-      if (index === i){
-        return { 
-          [`color${i + 1}`]: color[`color${i + 1}`], 
-          isLocked: !color.isLocked
-        }
-      } else {
-        return color;
-      }
-    })
-    this.setState({ colors: updatedColors})
-  }
-
   handleDropDownChange = (e) => {
-    // add error handling for not selected
     this.setState({ selectedProjectId: e.target.value});
   }
 
@@ -90,11 +35,28 @@ class PaletteForm extends Component {
     };
   }
 
+  decidePalleteVerb = (e) => {
+    const { oldProjectName } = this.state;
+    if (oldProjectName) {
+      this.handleUpdatePalette(e)
+    } else {
+      this.handleAddPalette(e)
+    }
+  }
+
+  // handleUpdatePalette = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     await editPalette
+  //   }
+  // }
+
   handleAddPalette = async (e) => {
     e.preventDefault();
     const { updateProjects } = this.props;
-    const { colors, newPaletteName,
+    const { newPaletteName,
       selectedProjectId } = this.state;
+    const { colors } = this.props;
     const newPalette = {
       name: newPaletteName,
       color1: colors[0].color1,
@@ -121,17 +83,17 @@ class PaletteForm extends Component {
 
   render() {
     const { projects } = this.props;
-    const { colors } = this.state;
-    const colorBtns = colors.map((color, i) => {
+    const { colors } = this.props;
+    const colorBtns = colors.length ? colors.map((color, i) => {
       const hexCode = color[`color${i + 1}`];
       return <button
             key={hexCode} 
             className='color' 
             style={{backgroundColor: hexCode}}
-            onClick={() => this.toggleLock(i)}
-            >{hexCode.toUpperCase()} is locked: {color.isLocked.toString()}
+            onClick={() => this.props.toggleLock(i)}>
+            {hexCode.toUpperCase()} is locked: {color.isLocked.toString()}
         </button>
-    });
+    }) : null;
 
     const projNames = projects.map(proj => {
       return <option
@@ -148,7 +110,7 @@ class PaletteForm extends Component {
         </section>
         <button 
           className='random'
-          onClick={this.updateColors}
+          onClick={() => this.props.updateColors()}
         >Randomize!</button>
 
         <section className='forms'>
@@ -169,7 +131,6 @@ class PaletteForm extends Component {
           <form>
             <h3>Add this Palette to a Project</h3>
             <select
-              // value={this.state.selectedProjectId || 'default'}
               defaultValue={this.state.oldProjectName || 'default'}
               onChange={(event) => this.handleDropDownChange(event)}
             >
@@ -185,7 +146,7 @@ class PaletteForm extends Component {
               onChange={this.handleInputChange}
             />
             <button
-              onClick={this.handleAddPalette}
+              onClick={e => this.decidePalleteVerb(e)}
             >Add</button>
           </form>
         </section>

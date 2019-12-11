@@ -3,6 +3,7 @@ import ProjectCard from '../ProjectCard/ProjectCard';
 import './ProjectsContainer.scss';
 
 const ProjectsContainer = ({ projects, handleModal }) => {
+  console.log(projects)
   const projCards = projects.map(project => {
     return <ProjectCard
       key={project.id}
