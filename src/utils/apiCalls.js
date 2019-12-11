@@ -87,9 +87,9 @@ export const deleteProject = async (projectId) => {
 export const editProject = async (projectId, newName) => {
   const options = {
     method: 'PATCH',
-    body: {
+    body: JSON.stringify({
       name: newName
-    },
+    }),
     headers: {
       'content-type': 'application/json'
     }

@@ -1,7 +1,7 @@
 import React from 'react';
 import './ProjectCard.scss';
 
-const ProjectCard = ({ project, handleModal }) => {
+const ProjectCard = ({ project, handleModal, handleKeyPress }) => {
   const { palettes } = project;
   const paletteCards = palettes.map(palette => {
     const { color1, color2, color3, color4, color5 } = palette;
@@ -61,7 +61,7 @@ const ProjectCard = ({ project, handleModal }) => {
   })
   return (
     <article className='project-card'>
-      <h2>{project.name}</h2>
+      <h2 contenteditable="true" onKeyPress={(e) => handleKeyPress(e, project.id, e.target.innerText)}>{project.name}</h2>
       { paletteCards }
     </article>
   )
