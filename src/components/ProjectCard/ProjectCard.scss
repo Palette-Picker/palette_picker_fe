@@ -21,3 +21,10 @@
   height: 25px;
   width: 25px;
 }
+
+[contenteditable]:hover:after {
+  background: lightblue;
+  display: block;
+  content:'Click to Edit, Press "Enter" to save';
+  font-size: .75rem;
+}
