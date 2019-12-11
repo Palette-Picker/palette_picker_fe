@@ -76,8 +76,12 @@ describe('ProjectCard', () => {
     expect(mockHandleProjectDelete).toHaveBeenCalledWith(19);
   });
 
-  it('should call handleKeyPress when Enter is clicked from editable field', () => {
-
+  it.skip('should call handleKeyPress when Enter is clicked from editable field', () => {
+  const mockTypeEvent = { target: { innerText: 'Changed Project Name' } }
+    wrapper.find('.project-name').simulate('keypress', 'Enter', mockEvent);
+    // console.log(wrapper.find('.project-name'))
+    expect(mockHandleKeyPress).toHaveBeenCalled();
+    // expect(mockHandleKeyPress).toHaveBeenCalledWith(mockTypeEvent, 19, mockTypeEvent.target.innerText);
   });
 
 });

@@ -68,7 +68,6 @@ class App extends Component {
       }
     })
     this.setState({ colors })
-    console.log('here')
   }
 
   toggleLock = async (index) => {

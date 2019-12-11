@@ -74,7 +74,6 @@ const ProjectCard = ({ project, handleModal, handleKeyPress, handleProjectDelete
       {paletteCards}
     </article>
   )
-
 };
 
 export default ProjectCard;
