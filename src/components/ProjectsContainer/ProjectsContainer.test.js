@@ -4,7 +4,6 @@ import ProjectsContainer from './ProjectsContainer';
 
 describe('ProjectsContainer', () => {
 
-  let wrapper;
   const mockProjects = [
     {
       id: 19,
@@ -24,15 +23,17 @@ describe('ProjectsContainer', () => {
         }]
       }];
 
-  const mockPass = jest.fn();
-  const mockToggleModal = jest.fn();
+  const mockHandleModal = jest.fn();
+  const mockHandleKeyPress = jest.fn();
+  const mockHandleProjectDelete = jest.fn();
 
   it('should match the snapshot', () => {
-    wrapper = shallow(
+    const wrapper = shallow(
       <ProjectsContainer
         projects={mockProjects}
-        passPaletteNameAndColors={mockPass}
-        toggleModal={mockToggleModal}
+        handleModal={mockHandleModal}
+        handleKeyPress={mockHandleKeyPress}
+        handleProjectDelete={mockHandleProjectDelete}
       />);
     expect(wrapper).toMatchSnapshot();
   });

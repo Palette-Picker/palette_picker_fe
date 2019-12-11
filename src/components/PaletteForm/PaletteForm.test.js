@@ -6,12 +6,12 @@ describe('PaletteForm', () => {
 
   let wrapper;
 
-  beforeEach(() => {
-    wrapper = shallow(
-      <PaletteForm 
+  // beforeEach(() => {
+  //   wrapper = shallow(
+  //     <PaletteForm 
         
-      />)
-  });
+  //     />)
+  // });
 
   it('should match the snapshot', () => {
     // expect(wrapper).toMatchSnapshot();

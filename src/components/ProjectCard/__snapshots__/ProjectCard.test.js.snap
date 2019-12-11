@@ -4,7 +4,15 @@ exports[`ProjectCard should match the snapshot 1`] = `
 <article
   className="project-card"
 >
-  <h2>
+  <img
+    className="img--close"
+    onClick={[Function]}
+    src="close-icon-svg-4.jpg"
+  />
+  <h2
+    contenteditable="true"
+    onKeyPress={[Function]}
+  >
     Colors
   </h2>
   <section

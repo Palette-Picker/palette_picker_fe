@@ -24,13 +24,41 @@ describe('ProjectCard', () => {
         }]
     };
 
-  const mockPass = jest.fn();
+    const mockPaletteUnlocked = [
+      {
+        color1: "#82d173",
+        isLocked: false
+      },
+      {
+        color2: "#abfaa9",
+        isLocked: false
+      },
+      {
+        color3: "#95a3b3",
+        isLocked: false
+      },
+      {
+        color4: "#4c2c69",
+        isLocked: false
+      },
+      {
+        color5: "#42253b",
+        isLocked: false
+      }
+    ];
+
+    const mockHandleModal = jest.fn();
+    const mockHandleKeyPress = jest.fn();
+    const mockHandleProjectDelete = jest.fn();
+    const mockEvent = jest.fn();
 
   beforeEach(() => {
     wrapper = shallow(
       <ProjectCard
         project={mockProject}
-        passPaletteNameAndColors={mockPass}
+        handleModal={mockHandleModal}
+        handleKeyPress={mockHandleKeyPress}
+        handleProjectDelete={mockHandleProjectDelete}
       />)
   });
 
@@ -38,10 +66,18 @@ describe('ProjectCard', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should call passPaletteNameAndColors when clicked', () => {
-    wrapper.find('div').at(0).simulate('click');
-    // expect(mockPass).toHaveBeenCalledWith(paletteUnlocked, { 19, 'Colors'}, 'Purples and greens')
-    expect(mockPass).toHaveBeenCalled();
+  it('should call handleModal when a palette is clicked', () => {
+    wrapper.find('.five-colors').simulate('click', mockEvent);
+    expect(mockHandleModal).toHaveBeenCalledWith(mockEvent, mockPaletteUnlocked, { id: 19, name: 'Colors'}, 'Purples and greens', 29)
+  });
+
+  it('should call handleProjectDelete when img is clicked', () => {
+    wrapper.find('.img--close').simulate('click');
+    expect(mockHandleProjectDelete).toHaveBeenCalledWith(19);
+  });
+
+  it('should call handleKeyPress when Enter is clicked from editable field', () => {
+
   });
 
 });

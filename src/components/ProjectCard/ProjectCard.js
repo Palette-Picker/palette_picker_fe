@@ -61,9 +61,16 @@ const ProjectCard = ({ project, handleModal, handleKeyPress, handleProjectDelete
     </section>
   })
   return (
-    <article className='project-card'>
-      <img className='img--close' src={close} onClick={() => handleProjectDelete(project.id)} />
-      <h2 contenteditable="true" onKeyPress={(e) => handleKeyPress(e, project.id, e.target.innerText)}>{project.name}</h2>
+    <article className="project-card">
+      <img 
+        className="img--close" 
+        src={close}
+        alt="x to close button" 
+        onClick={() => handleProjectDelete(project.id)} />
+      <h2 
+        className="project-name"
+        contenteditable="true" 
+        onKeyPress={(e) => handleKeyPress(e, project.id, e.target.innerText)}>{project.name}</h2>
       {paletteCards}
     </article>
   )

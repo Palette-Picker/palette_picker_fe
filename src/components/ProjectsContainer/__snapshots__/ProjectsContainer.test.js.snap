@@ -5,8 +5,10 @@ exports[`ProjectsContainer should match the snapshot 1`] = `
   className="projects"
 >
   <ProjectCard
+    handleKeyPress={[MockFunction]}
+    handleModal={[MockFunction]}
+    handleProjectDelete={[MockFunction]}
     key="19"
-    passPaletteNameAndColors={[MockFunction]}
     project={
       Object {
         "id": 19,
@@ -27,7 +29,6 @@ exports[`ProjectsContainer should match the snapshot 1`] = `
         ],
       }
     }
-    toggleModal={[MockFunction]}
   />
 </section>
 `;
