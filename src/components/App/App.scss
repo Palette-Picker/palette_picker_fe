@@ -20,3 +20,15 @@
 .App-link {
   color: #09d3ac;
 }
+
+.EditPaletteModal {
+  align-items: center;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  height: 45%;
+  left: 30%;
+  position: fixed;
+  top: 35%;
+  width: 40%;
+}

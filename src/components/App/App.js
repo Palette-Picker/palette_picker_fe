@@ -36,7 +36,7 @@ class App extends Component {
     }
   }
 
-  toggleModal = (e, colors, project, paletteName) => {
+  handleModal = (e, colors, project, paletteName) => {
     if (e.target.name === 'cancel') {
       this.setState({
         colors: [],
@@ -84,12 +84,17 @@ class App extends Component {
           overlayClassName="EditPaletteOverlay"
         >
           <h2>Would you like to edit this palette?</h2>
-          <button>
-            <Link onClick={e => this.toggleModal(e)} to='/' name='edit'>Yes</Link>
-          </button>
-          <button name='cancel' onClick={e => this.toggleModal(e)}>
-            Cancel
-          </button>
+          <section className='section--btn-holder'>
+            <button className='btn--confirm-edit'>
+              <Link onClick={e => this.handleModal(e)} to='/' name='edit'>Yes</Link>
+            </button>
+            <button className='btn--cancel-edit' name='cancel' onClick={e => this.handleModal(e)}>
+              Cancel
+            </button>
+            <button className='btn--delete-palette'>
+              Delete Palette
+            </button>
+          </section>
         </ReactModal>       
         <Header />
         <main>
@@ -103,7 +108,7 @@ class App extends Component {
           />} />
           <Route exact path='/projects' render={() => <ProjectsContainer
             projects={projects}
-            toggleModal={this.toggleModal} />} />
+            handleModal={this.handleModal} />} />
         </main>
       </div>
     )

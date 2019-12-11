@@ -1,7 +1,7 @@
 import React from 'react';
 import './ProjectCard.scss';
 
-const ProjectCard = ({ project, toggleModal }) => {
+const ProjectCard = ({ project, handleModal }) => {
   const { palettes } = project;
   const paletteCards = palettes.map(palette => {
     const { color1, color2, color3, color4, color5 } = palette;
@@ -34,7 +34,7 @@ const ProjectCard = ({ project, toggleModal }) => {
       <h4>{palette.name}</h4>
       <div
         className='five-colors'
-        onClick={(e) => toggleModal(e, paletteUnlocked, { id: project.id, name: project.name }, palette.name)}
+        onClick={(e) => handleModal(e, paletteUnlocked, { id: project.id, name: project.name }, palette.name)}
       >
         <div 
           className='palette-color'

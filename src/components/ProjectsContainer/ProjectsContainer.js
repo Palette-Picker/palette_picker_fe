@@ -2,12 +2,12 @@ import React from 'react';
 import ProjectCard from '../ProjectCard/ProjectCard';
 import './ProjectsContainer.scss';
 
-const ProjectsContainer = ({ projects, toggleModal }) => {
+const ProjectsContainer = ({ projects, handleModal }) => {
   const projCards = projects.map(project => {
     return <ProjectCard
       key={project.id}
       project={project}
-      toggleModal={toggleModal} />
+      handleModal={handleModal} />
   })
   return (
     <section className='projects'>
