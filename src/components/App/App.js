@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 import ReactModal from 'react-modal';
 import Header from '../Header/Header';
-import { getProjects } from '../../utils/apiCalls';
+import { getProjects, deletePalette } from '../../utils/apiCalls';
 import PaletteForm from '../PaletteForm/PaletteForm';
 import ProjectsContainer from '../ProjectsContainer/ProjectsContainer';
 
@@ -16,6 +16,7 @@ class App extends Component {
       colors: [],
       projects: [],
       paletteName: '',
+      paletteId: null,
       projectName: '',
       projectId: null,
       error: '',
@@ -25,34 +26,109 @@ class App extends Component {
 
   async componentDidMount() {
     this.updateProjects();
+    this.colorCheck();
   }
 
   updateProjects = async () => {
     try {
       const projects = await getProjects();
       this.setState({ projects })
+      console.log('here')
     } catch ({ message }) {
       this.setState({ error: message })
     }
   }
 
-  toggleModal = () => {
+    colorCheck = () => {
+    let { colors } = this.state;
+    if (colors.length < 5) {
+      while (colors.length < 5) {
+        colors.push(this.getRandomColor())
+      }
+      colors = colors.map((color, i) => {
+        return { [`color${i + 1}`]: color, isLocked: false }
+      })
+      this.setState({ colors })
+    }
+  }
+
+  getRandomColor() {
+    return "#000000".replace(/0/g,() => {return (~~(Math.random()*16)).toString(16);});
+  }
+
+  updateColors = () => {
+    let { colors } = this.state;
+    colors = colors.map((color, i) => {
+      if (color.isLocked === false) {
+         return {
+          [`color${i + 1}`]: this.getRandomColor(), 
+          isLocked: false
+        }
+      } else {
+        return color
+      }
+    })
+    this.setState({ colors })
+    console.log('here')
+  }
+
+  toggleLock = async (index) => {
+    const { colors } = this.state;
+    const updatedColors = colors.map((color, i) => {
+      if (index === i){
+        return { 
+          [`color${i + 1}`]: color[`color${i + 1}`], 
+          isLocked: !color.isLocked
+        }
+      } else {
+        return color;
+      }
+    })
+    await this.setState({ colors: updatedColors})
+  }
+
+  handleModal = async (e, colors, project, paletteName, paletteId) => {
+    if (e.target.name === 'cancel') {
+      await this.setState({
+        colors: [],
+        paletteName: '',
+        projectId: null,
+        projectName: '',
+        paletteId: null
+      })
+      this.colorCheck();
+    } else if (e.target.classList.contains('palette-color')) {
+      this.passPaletteNameAndColors(colors, project, paletteName, paletteId)
+    }
     this.setState({
       modalOpen: !this.state.modalOpen
     })
   }
 
-  passPaletteNameAndColors = (colors, project, paletteName) => {
+  paletteDeleteHandler = async (e) => {
+    e.preventDefault();
+    e.persist();
+    try {
+      await deletePalette(this.state.paletteId);
+      this.updateProjects();
+      this.handleModal(e);
+    } catch (error) {
+      this.setState({ error });
+    }
+  }
+
+  passPaletteNameAndColors = (colors, project, paletteName, paletteId) => {
     this.setState({
       colors: colors,
       paletteName,
       projectId: project.id,
-      projectName: project.name
+      projectName: project.name,
+      paletteId
     });
   }
 
   render() {
-    const { projects, error } = this.state
+    const { projects, colors, paletteId, paletteName, projectName, projectId } = this.state
     return (
       <div className='App'>
         <ReactModal
@@ -74,27 +150,35 @@ class App extends Component {
           overlayClassName="EditPaletteOverlay"
         >
           <h2>Would you like to edit this palette?</h2>
-          <button>
-            <Link to='/'>Yes</Link>
-          </button>
-          <button>
-            Cancel
-          </button>
+          <section className='section--btn-holder'>
+            <button className='btn--confirm-edit'>
+              <Link onClick={e => this.handleModal(e)} to='/' name='edit'>Yes</Link>
+            </button>
+            <button className='btn--cancel-edit' name='cancel' onClick={e => this.handleModal(e)}>
+              Cancel
+            </button>
+            <button onClick={e => this.paletteDeleteHandler(e)} className='btn--delete-palette'>
+              Delete Palette
+            </button>
+          </section>
         </ReactModal>       
         <Header />
         <main>
           <Route exact path='/' render={() => <PaletteForm
-            colors={this.state.colors}
+            colors={colors}
+            passPaletteNameAndColors={this.passPaletteNameAndColors}
+            updateColors={this.updateColors}
+            toggleLock={this.toggleLock}
             projects={projects}
             updateProjects={this.updateProjects}
-            newPaletteName={this.state.paletteName}
-            oldProjectName={this.state.projectName}
-            selectedProjectId={this.state.projectId}
+            paletteId={paletteId}
+            newPaletteName={paletteName}
+            oldProjectName={projectName}
+            selectedProjectId={projectId}
           />} />
           <Route exact path='/projects' render={() => <ProjectsContainer
-            projects={projects}
-            passPaletteNameAndColors={this.passPaletteNameAndColors}
-            toggleModal={this.toggleModal} />} />
+            projects={this.state.projects}
+            handleModal={this.handleModal} />} />
         </main>
       </div>
     )
