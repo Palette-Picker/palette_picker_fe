@@ -8,8 +8,9 @@ class PaletteForm extends Component {
     this.state = {
       colors: this.props.colors,
       newProjectName: '',
-      newPaletteName: '',
-      selectedProjectId: null,
+      oldProjectName: this.props.oldProjectName || '',
+      newPaletteName: this.props.newPaletteName || '',
+      selectedProjectId: this.props.selectedProjectId || null,
       error: ''
     }
   }
@@ -20,7 +21,6 @@ class PaletteForm extends Component {
 
   colorCheck = () => {
     let { colors } = this.state;
-    console.log(colors)
     if (colors.length < 5) {
       while (colors.length < 5) {
         colors.push(this.getRandomColor())
@@ -69,7 +69,6 @@ class PaletteForm extends Component {
 
   handleDropDownChange = (e) => {
     // add error handling for not selected
-
     this.setState({ selectedProjectId: e.target.value});
   }
 
@@ -122,10 +121,8 @@ class PaletteForm extends Component {
   render() {
     const { projects } = this.props;
     const { colors } = this.state;
-    console.log(colors)
     const colorBtns = colors.map((color, i) => {
       const hexCode = color[`color${i + 1}`];
-      console.log(hexCode)
       return <button
             key={hexCode} 
             className='color' 
@@ -171,9 +168,9 @@ class PaletteForm extends Component {
           <form>
             <h3>Add this Palette to a Project</h3>
             <select
-              value={this.selectedProjectId}
-              defaultValue={'default'}
-              onChange={this.handleDropDownChange}
+              value={this.state.selectedProjectId}
+              defaultValue={this.state.oldProjectName || 'default'}
+              onChange={(event) => this.handleDropDownChange(event)}
             >
             <option value='default' disabled>Choose a Project ...</option>
             { projNames }

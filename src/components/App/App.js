@@ -15,6 +15,9 @@ class App extends Component {
     this.state = {
       colors: [],
       projects: [],
+      paletteName: '',
+      projectName: '',
+      projectId: null,
       error: '',
       modalOpen: false,
     }
@@ -33,8 +36,19 @@ class App extends Component {
     }
   }
 
-  passPaletteColors = async (colors) => {
-    await this.setState({ colors: colors });
+  toggleModal = () => {
+    this.setState({
+      modalOpen: !this.state.modalOpen
+    })
+  }
+
+  passPaletteNameAndColors = (colors, project, paletteName) => {
+    this.setState({
+      colors: colors,
+      paletteName,
+      projectId: project.id,
+      projectName: project.name
+    });
   }
 
   render() {
@@ -69,8 +83,18 @@ class App extends Component {
         </ReactModal>       
         <Header />
         <main>
-          <Route exact path='/' render={() => <PaletteForm colors={this.state.colors} projects={projects} updateProjects={this.updateProjects} />}/>
-          <Route exact path='/projects' render={() => <ProjectsContainer projects={projects} passPaletteColors={this.passPaletteColors} />}/>
+          <Route exact path='/' render={() => <PaletteForm
+            colors={this.state.colors}
+            projects={projects}
+            updateProjects={this.updateProjects}
+            newPaletteName={this.state.paletteName}
+            oldProjectName={this.state.projectName}
+            selectedProjectId={this.state.projectId}
+          />} />
+          <Route exact path='/projects' render={() => <ProjectsContainer
+            projects={projects}
+            passPaletteNameAndColors={this.passPaletteNameAndColors}
+            toggleModal={this.toggleModal} />} />
         </main>
       </div>
     )
