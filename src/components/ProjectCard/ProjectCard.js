@@ -1,34 +1,60 @@
 import React from 'react';
 import './ProjectCard.scss';
 
-const ProjectCard = ({ project }) => {
+const ProjectCard = ({ project, passPaletteNameAndColors }) => {
   const { palettes } = project;
   const paletteCards = palettes.map(palette => {
+    const { color1, color2, color3, color4, color5 } = palette;
+    const paletteUnlocked = [
+      {
+        color1,
+        isLocked: false
+      },
+      {
+        color2,
+        isLocked: false
+      },
+      {
+        color3,
+        isLocked: false
+      },
+      {
+        color4,
+        isLocked: false
+      },
+      {
+        color5, 
+        isLocked: false
+      }  
+    ]
     return <section 
       key={palette.id}
       className='palette'
       >
       <h4>{palette.name}</h4>
-      <div className='five-colors'>
+      <div
+        className='five-colors'
+        onClick={() => passPaletteNameAndColors(paletteUnlocked, { id: project.id, name: project.name }, palette.name)}
+      >
         <div 
           className='palette-color'
-          style={{backgroundColor: `${palette.color1}`}}
+          style={{backgroundColor: `${color1}`}}
         ></div>
         <div 
           className='palette-color'
-          style={{backgroundColor: `${palette.color2}`}}
+          style={{backgroundColor: `${color2}`}}
         ></div>
         <div 
           className='palette-color'
-          style={{backgroundColor: `${palette.color3}`}}
+          style={{backgroundColor: `${color3}`}}
         ></div>
         <div 
           className='palette-color'
-          style={{backgroundColor: `${palette.color4}`}}
+          style={{backgroundColor: `${color4}`}}
         ></div>
         <div 
           className='palette-color'
-          style={{backgroundColor: `${palette.color5}`}}
+          style={{backgroundColor: `${color5}`}}
         ></div>
       </div>
     </section>

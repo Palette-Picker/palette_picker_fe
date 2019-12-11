@@ -3,26 +3,33 @@ import { addProject, addPalette } from '../../utils/apiCalls';
 import './PaletteForm.scss';
 
 class PaletteForm extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      colors: [],
+      colors: this.props.colors,
       newProjectName: '',
-      newPaletteName: '',
-      selectedProjectId: null,
+      oldProjectName: this.props.oldProjectName || '',
+      newPaletteName: this.props.newPaletteName || '',
+      selectedProjectId: this.props.selectedProjectId || null,
       error: ''
     }
   }
 
   componentDidMount() {
-    let colors = [];
-    while (colors.length < 5) {
-      colors.push(this.getRandomColor())
+    this.colorCheck();
+  }
+
+  colorCheck = () => {
+    let { colors } = this.state;
+    if (colors.length < 5) {
+      while (colors.length < 5) {
+        colors.push(this.getRandomColor())
+      }
+      colors = colors.map((color, i) => {
+        return { [`color${i + 1}`]: color, isLocked: false }
+      })
+      this.setState({ colors })
     }
-    colors = colors.map((color, i) => {
-      return { [`color${i + 1}`]: color, isLocked: false }
-    })
-    this.setState({ colors })
   }
 
   getRandomColor() {
@@ -62,7 +69,6 @@ class PaletteForm extends Component {
 
   handleDropDownChange = (e) => {
     // add error handling for not selected
-
     this.setState({ selectedProjectId: e.target.value});
   }
 
@@ -162,9 +168,9 @@ class PaletteForm extends Component {
           <form>
             <h3>Add this Palette to a Project</h3>
             <select
-              value={this.selectedProjectId}
-              defaultValue={'default'}
-              onChange={this.handleDropDownChange}
+              value={this.state.selectedProjectId}
+              defaultValue={this.state.oldProjectName || 'default'}
+              onChange={(event) => this.handleDropDownChange(event)}
             >
             <option value='default' disabled>Choose a Project ...</option>
             { projNames }
