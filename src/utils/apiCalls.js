@@ -76,6 +76,7 @@ export const deleteProject = async (projectId) => {
   };
   const response = await fetch(`${baseUrl}/projects/${projectId}`, options);
   if (!response.ok && response.status !== 404) {
+    
     throw Error('Unable to delete the project and its palettes.')
   };
   const removedId = await response.json();

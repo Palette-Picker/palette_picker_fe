@@ -25,13 +25,15 @@ class PaletteForm extends Component {
     e.preventDefault();
     const { updateProjects } = this.props;
     const { newProjectName } = this.state;
-    try {
-      await addProject(newProjectName);
+    let projectPost = await addProject(newProjectName);
+    console.log(projectPost.error)
+    if (projectPost.error) {
+      this.setState({error: projectPost.error})
+    } else {
       await updateProjects();
-      this.clearInput('newProjectName');
-    } catch ({ error }) {
-      this.setState({ error })
-    };
+    }
+    this.clearInput('newProjectName');
+
   }
 
   decidePalleteVerb = (e) => {
@@ -142,6 +144,7 @@ class PaletteForm extends Component {
               placeholder='Enter Project Name'
               onChange={this.handleInputChange}
             />
+            {this.state.error && <p className='p--project-error'>{this.state.error}</p>}
             <button
               onClick={this.handleSubmitProject}
             >Submit</button>
