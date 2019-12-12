@@ -148,7 +148,7 @@ class PaletteForm extends Component {
             />
             <button
               className="submit-btn"
-              onClick={this.handleSubmitProject}
+              onClick={(e) => this.handleSubmitProject(e)}
             >Submit</button>
           </form>
           <form>

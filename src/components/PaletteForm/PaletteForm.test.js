@@ -97,14 +97,13 @@ describe('PaletteForm', () => {
     const mockInputChange = { target: { name: 'newProjectName', value: 'A New Project'}};
     wrapper.instance().handleInputChange = jest.fn();
     wrapper.find('.create-project').simulate('change', mockInputChange);
-    // wrapper.instance().forceUpdate();
+    wrapper.instance().forceUpdate();
     expect(wrapper.instance().handleInputChange).toHaveBeenCalled();
   });
 
-  it.skip('should call handleSubmitProject when submit is clicked', () => {
+  it('should call handleSubmitProject when submit is clicked', () => {
     wrapper.instance().handleSubmitProject = jest.fn();
     wrapper.find('.submit-btn').simulate('click', mockPreventEvent);
-    // wrapper.instance().forceUpdate();
     expect(wrapper.instance().handleSubmitProject).toHaveBeenCalledWith(mockPreventEvent);
   });
 
