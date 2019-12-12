@@ -15,8 +15,9 @@ This is the UX/UI portion of a full-stack paired project. We first created the R
 - SASS
 - [GitHub Projects](https://github.com/orgs/Palette-Picker/projects/1)
 
-### GIF
-
+### Wireframes
+<img width="786" alt="Screen Shot 2019-12-03 at 4 37 23 PM" src="https://user-images.githubusercontent.com/44537724/70729487-8e01c280-1cc0-11ea-8afb-a3bbbb7d8eab.png">
+<img width="788" alt="Screen Shot 2019-12-03 at 4 38 21 PM" src="https://user-images.githubusercontent.com/44537724/70729633-c99c8c80-1cc0-11ea-802d-284e85d73621.png">
 
 ### Screenshots
 <img width="1440" alt="Screen Shot 2019-12-12 at 9 01 19 AM" src="https://user-images.githubusercontent.com/50842455/70728194-2fd3e000-1cbe-11ea-94fc-1eacfe6bfe15.png">
