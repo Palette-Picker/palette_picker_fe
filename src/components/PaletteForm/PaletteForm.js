@@ -171,7 +171,7 @@ class PaletteForm extends Component {
             />
             <button
               onClick={e => this.decidePalleteVerb(e)}
-            >Add</button>
+            >{!this.props.oldProjectName ? 'Add' : 'Save'}</button>
           </form>
         </section>
       </div>
