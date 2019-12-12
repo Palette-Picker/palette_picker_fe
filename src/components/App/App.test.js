@@ -81,4 +81,11 @@ describe('App', () => {
     wrapper.instance().passPaletteNameAndColors(mockColors, mockProject, mockPaletteName, mockPaletteId);
     expect(wrapper.state()).toEqual(expected);
   });
+
+  it('should call handleModal when the "yes" modal button is clicked', () => {
+    const mockEvent = { target: { name: 'cancel' } }
+    wrapper.instance().handleModal = jest.fn();
+    wrapper.find('Link').at(0).simulate('click', mockEvent);
+    expect(wrapper.instance().handleModal).toHaveBeenCalledWith(mockEvent);
+  });
 });
