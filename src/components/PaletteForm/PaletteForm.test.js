@@ -101,8 +101,11 @@ describe('PaletteForm', () => {
     expect(wrapper.instance().handleInputChange).toHaveBeenCalled();
   });
 
-  it('should call handleSubmitProject when submit is clicked', () => {
-
+  it.skip('should call handleSubmitProject when submit is clicked', () => {
+    wrapper.instance().handleSubmitProject = jest.fn();
+    wrapper.find('.submit-btn').simulate('click', mockPreventEvent);
+    // wrapper.instance().forceUpdate();
+    expect(wrapper.instance().handleSubmitProject).toHaveBeenCalledWith(mockPreventEvent);
   });
 
   it('should call decidePaletteVerb when add button is clicked', () => {
@@ -140,6 +143,5 @@ describe('PaletteForm', () => {
     wrapper.instance().clearInput('newProjectName');
     expect(wrapper.state('newProjectName')).toEqual('');
   });
-
 
 });

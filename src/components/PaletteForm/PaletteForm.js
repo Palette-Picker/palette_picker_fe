@@ -143,6 +143,7 @@ class PaletteForm extends Component {
               onChange={this.handleInputChange}
             />
             <button
+              className="submit-btn"
               onClick={this.handleSubmitProject}
             >Submit</button>
           </form>
