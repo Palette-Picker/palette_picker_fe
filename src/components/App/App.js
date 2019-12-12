@@ -167,7 +167,7 @@ class App extends Component {
           <h2>Would you like to edit this palette?</h2>
           <section className='section--btn-holder'>
             <button className='btn--confirm-edit'>
-              <Link onClick={e => this.handleModal(e)} to='/' name='edit'>Yes</Link>
+              <Link className="modal-link" onClick={e => this.handleModal(e)} to='/' name='edit'>Yes</Link>
             </button>
             <button className='btn--cancel-edit' name='cancel' onClick={e => this.handleModal(e)}>
               Cancel

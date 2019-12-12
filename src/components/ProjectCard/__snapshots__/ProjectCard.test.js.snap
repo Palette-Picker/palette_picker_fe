@@ -4,12 +4,21 @@ exports[`ProjectCard should match the snapshot 1`] = `
 <article
   className="project-card"
 >
-  <img
-    alt="x to close button"
-    className="img--close"
-    onClick={[Function]}
-    src="close-icon-svg-4.jpg"
-  />
+  <div
+    className="delete"
+  >
+    <img
+      alt="x to close button"
+      className="img--close"
+      onClick={[Function]}
+      src="close-icon-svg-4.jpg"
+    />
+    <p
+      className="delete-text"
+    >
+      Click to delete project and all of it's palettes.
+    </p>
+  </div>
   <h2
     className="project-name"
     contenteditable="true"
