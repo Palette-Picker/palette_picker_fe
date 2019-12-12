@@ -1,5 +1,27 @@
+@import './src/variables.scss';
+
 header {
   display: flex;
   align-items: center;
   justify-content: space-around;
+  font-family: $fancy-font;
+}
+
+h1 {
+  font-size: 3.2em;
+}
+
+.nav-link {
+  font-size: 2em;
+  text-decoration: none;
+  line-height: 5;
+  color: $dark-color;
+  &:hover {
+    color: $highlight-color;
+  }
+}
+
+.active {
+  color: $highlight-color;
+  text-decoration: underline;
 }
