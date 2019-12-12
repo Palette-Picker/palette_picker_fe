@@ -143,5 +143,4 @@ describe('PaletteForm', () => {
     wrapper.instance().clearInput('newProjectName');
     expect(wrapper.state('newProjectName')).toEqual('');
   });
-
 });

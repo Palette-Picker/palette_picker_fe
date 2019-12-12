@@ -28,7 +28,6 @@ class PaletteForm extends Component {
     const { updateProjects } = this.props;
     const { newProjectName } = this.state;
     let projectPost = await addProject(newProjectName);
-    console.log(projectPost.error)
     if (projectPost.error) {
       this.setState({error: projectPost.error})
     } else {
