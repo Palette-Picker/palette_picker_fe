@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App should match the snapshot 1`] = `
+<div
+  className="App"
+>
+  <Modal
+    ariaHideApp={false}
+    bodyOpenClassName="ReactModal__Body--open"
+    className="EditPaletteModal"
+    closeTimeoutMS={0}
+    contentLabel="Edit Palette"
+    isOpen={false}
+    overlayClassName="EditPaletteOverlay"
+    parentSelector={[Function]}
+    portalClassName="ReactModalPortal"
+    role="dialog"
+    shouldCloseOnEsc={true}
+    shouldCloseOnOverlayClick={true}
+    shouldFocusAfterRender={true}
+    shouldReturnFocusAfterClose={true}
+    style={
+      Object {
+        "content": Object {},
+        "overlay": Object {
+          "backgroundColor": "rgba(0, 0, 0, 0.85)",
+          "bottom": 0,
+          "left": 0,
+          "position": "fixed",
+          "right": 0,
+          "top": 0,
+        },
+      }
+    }
+  >
+    <h2>
+      Would you like to edit this palette?
+    </h2>
+    <section
+      className="section--btn-holder"
+    >
+      <button
+        className="btn--confirm-edit"
+      >
+        <Link
+          name="edit"
+          onClick={[Function]}
+          to="/"
+        >
+          Yes
+        </Link>
+      </button>
+      <button
+        className="btn--cancel-edit"
+        name="cancel"
+        onClick={[Function]}
+      >
+        Cancel
+      </button>
+      <button
+        className="btn--delete-palette"
+        onClick={[Function]}
+      >
+        Delete Palette
+      </button>
+    </section>
+  </Modal>
+  <Header />
+  <main>
+    <Route
+      exact={true}
+      path="/"
+      render={[Function]}
+    />
+    <Route
+      exact={true}
+      path="/projects"
+      render={[Function]}
+    />
+  </main>
+</div>
+`;
