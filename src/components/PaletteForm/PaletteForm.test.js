@@ -121,7 +121,9 @@ describe('PaletteForm', () => {
   });
 
   it('should call handleAddPalette if oldProjectName is empty string after clicking add-btn', () => {
-
+    wrapper.instance().handleAddPalette = jest.fn();
+    wrapper.instance().decidePaletteVerb(mockPreventEvent);
+    expect(wrapper.instance().handleAddPalette).toHaveBeenCalledWith(mockPreventEvent);
   });
 
   it('should call updateColors when random btn is clicked', () => {
