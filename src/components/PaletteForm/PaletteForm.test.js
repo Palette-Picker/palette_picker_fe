@@ -93,11 +93,11 @@ describe('PaletteForm', () => {
     expect(wrapper.state('newProjectName')).toEqual('A New Project');
   });
 
-  it.skip('should call handleInputChange when input event occurs', () => {
+  it('should call handleInputChange when input event occurs', () => {
     const mockInputChange = { target: { name: 'newProjectName', value: 'A New Project'}};
     wrapper.instance().handleInputChange = jest.fn();
     wrapper.find('.create-project').simulate('change', mockInputChange);
-    wrapper.instance().forceUpdate();
+    // wrapper.instance().forceUpdate();
     expect(wrapper.instance().handleInputChange).toHaveBeenCalled();
   });
 

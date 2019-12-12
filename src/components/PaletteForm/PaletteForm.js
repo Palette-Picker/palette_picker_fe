@@ -144,7 +144,7 @@ class PaletteForm extends Component {
               type='text' 
               value={this.state.newProjectName}
               placeholder='Enter Project Name'
-              onChange={this.handleInputChange}
+              onChange={(e) => this.handleInputChange(e)}
             />
             <button
               className="submit-btn"
@@ -174,7 +174,7 @@ class PaletteForm extends Component {
             />
             <button
               className="add-btn"
-              onClick={e => this.decidePalleteVerb(e)}
+              onClick={e => this.decidePaletteVerb(e)}
             >{!this.props.oldProjectName ? 'Add' : 'Save'}</button>
           </form>
         </section>
