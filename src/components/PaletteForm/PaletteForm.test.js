@@ -52,6 +52,8 @@ describe('PaletteForm', () => {
   const mockUpdateColors = jest.fn();
   const mockToggleLock = jest.fn();
   const mockUpdateProjects = jest.fn();
+  const mockEvent = jest.fn();
+  const mockPreventEvent = { preventDefault: jest.fn()};
 
   beforeEach(() => {
     wrapper = shallow(
@@ -74,31 +76,69 @@ describe('PaletteForm', () => {
   });
 
   it('should update state when dropdown changes', () => {
+    const mockDropdownChange = { target: { name: 'selectedProjectId', value: 19}};
+    wrapper.instance().handleDropDownChange(mockDropdownChange);
+    expect(wrapper.state('selectedProjectId')).toEqual(19);
+  });
 
+  it('should call handleDropDownChange when change happens', () => {
+    wrapper.instance().handleDropDownChange = jest.fn();
+    wrapper.find('select').simulate('change', mockEvent);
+    expect(wrapper.instance().handleDropDownChange).toHaveBeenCalledWith(mockEvent);
   });
 
   it('should update state when input changes', () => {
+    const mockInputChange = { target: { name: 'newProjectName', value: 'A New Project'}};
+    wrapper.instance().handleInputChange(mockInputChange);
+    expect(wrapper.state('newProjectName')).toEqual('A New Project');
+  });
 
+  it.skip('should call handleInputChange when input event occurs', () => {
+    const mockInputChange = { target: { name: 'newProjectName', value: 'A New Project'}};
+    wrapper.instance().handleInputChange = jest.fn();
+    wrapper.find('.create-project').simulate('change', mockInputChange);
+    wrapper.instance().forceUpdate();
+    expect(wrapper.instance().handleInputChange).toHaveBeenCalled();
   });
 
   it('should call handleSubmitProject when submit is clicked', () => {
 
   });
 
-  it('should call decidePalleteVerb when add button is clicked', () => {
+  it('should call decidePaletteVerb when add button is clicked', () => {
+    wrapper.instance().decidePaletteVerb = jest.fn();
+    wrapper.find('.add-btn').simulate('click', mockEvent);
+    expect(wrapper.instance().decidePaletteVerb).toHaveBeenCalledWith(mockEvent);
+  });
+
+  it.skip('should call handleUpdatePalette if oldProjectName has a value after clicking add-btn', () => {
+    let mockOldProjectName = 'Old Name'
+    wrapper.instance().handleUpdatePalette = jest.fn();
+    wrapper.instance().decidePaletteVerb(mockEvent);
+    wrapper.instance().forceUpdate();
+    expect(wrapper.instance().handleUpdatePalette).toHaveBeenCalledWith(mockEvent)
+  });
+
+  it('should call handleAddPalette if oldProjectName is empty string after clicking add-btn', () => {
 
   });
 
-  it('should callUpdatePalette if oldProjectName has a value', () => {
-
+  it('should call updateColors when random btn is clicked', () => {
+    wrapper.find('.random').simulate('click');
+    expect(mockUpdateColors).toHaveBeenCalled();
   });
 
-  it('should call handleAddPalette if oldProjectName is empty string', () => {
-
+  it('should call toggleLock when a color is clicked', () => {
+    const mockIndex = 0;
+    wrapper.find('.color').at(0).simulate('click', mockIndex);
+    expect(mockToggleLock).toHaveBeenCalledWith(mockIndex);
   });
 
-  it('should clearInputs when called with a field', () => {
-
+  it('should set state when clearInputs is called', () => {
+    wrapper.setState({ newProjectName: 'New Name'});
+    expect(wrapper.state('newProjectName')).toEqual('New Name');
+    wrapper.instance().clearInput('newProjectName');
+    expect(wrapper.state('newProjectName')).toEqual('');
   });
 
 

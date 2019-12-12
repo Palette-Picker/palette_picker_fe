@@ -34,7 +34,7 @@ class PaletteForm extends Component {
     };
   }
 
-  decidePalleteVerb = (e) => {
+  decidePaletteVerb = (e) => {
     const { oldProjectName } = this.props;
     if (oldProjectName) {
       this.handleUpdatePalette(e)
@@ -135,7 +135,7 @@ class PaletteForm extends Component {
           <form>
             <h3>Create a New Project</h3>
             <input 
-              className='createProject' 
+              className='create-project' 
               name='newProjectName'
               type='text' 
               value={this.state.newProjectName}
@@ -167,7 +167,8 @@ class PaletteForm extends Component {
               onChange={this.handleInputChange}
             />
             <button
-              onClick={e => this.decidePalleteVerb(e)}
+              className="add-btn"
+              onClick={e => this.decidePaletteVerb(e)}
             >Add</button>
           </form>
         </section>
