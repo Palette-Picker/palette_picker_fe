@@ -71,7 +71,6 @@ class PaletteForm extends Component {
 
   handleAddPalette = async (e) => {
     e.preventDefault();
-    console.log('post')
     const { updateProjects } = this.props;
     const { newPaletteName,
       selectedProjectId } = this.state;
@@ -150,10 +149,14 @@ class PaletteForm extends Component {
           <form>
             <h3>Add this Palette to a Project</h3>
             <select
-              onChange={(event) => this.handleDropDownChange(event)}
+              onChange={(e) => this.handleDropDownChange(e)}
             >
-              <option value='default' selected={!oldProjectName ? true : false} disabled>Choose a Project ...</option>
-            { projNames }
+              <option 
+                value='default' 
+                selected={!oldProjectName ? true : false} 
+                disabled
+              >Choose a Project ...</option>
+              { projNames }
             </select>
             <input 
               className='createPalette'

@@ -33,7 +33,6 @@ class App extends Component {
     try {
       const projects = await getProjects();
       this.setState({ projects })
-      console.log('here')
     } catch ({ message }) {
       this.setState({ error: message })
     }
@@ -69,7 +68,6 @@ class App extends Component {
       }
     })
     this.setState({ colors })
-    console.log('here')
   }
 
   toggleLock = async (index) => {

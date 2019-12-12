@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProjectCard should match the snapshot 1`] = `
+<article
+  className="project-card"
+>
+  <img
+    alt="x to close button"
+    className="img--close"
+    onClick={[Function]}
+    src="close-icon-svg-4.jpg"
+  />
+  <h2
+    className="project-name"
+    contenteditable="true"
+    onKeyPress={[Function]}
+  >
+    Colors
+  </h2>
+  <section
+    className="palette"
+    key="29"
+  >
+    <h4>
+      Purples and greens
+    </h4>
+    <div
+      className="five-colors"
+      onClick={[Function]}
+    >
+      <div
+        className="palette-color"
+        style={
+          Object {
+            "backgroundColor": "#82d173",
+          }
+        }
+      />
+      <div
+        className="palette-color"
+        style={
+          Object {
+            "backgroundColor": "#abfaa9",
+          }
+        }
+      />
+      <div
+        className="palette-color"
+        style={
+          Object {
+            "backgroundColor": "#95a3b3",
+          }
+        }
+      />
+      <div
+        className="palette-color"
+        style={
+          Object {
+            "backgroundColor": "#4c2c69",
+          }
+        }
+      />
+      <div
+        className="palette-color"
+        style={
+          Object {
+            "backgroundColor": "#42253b",
+          }
+        }
+      />
+    </div>
+  </section>
+</article>
+`;

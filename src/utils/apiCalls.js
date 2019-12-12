@@ -1,10 +1,8 @@
 const baseUrl = 'https://palette-picker-1906-be.herokuapp.com/api/v1';
 // const baseUrl = 'http://localhost:3001/api/v1';
 
-
 export const getProjects = async () => {
   const response = await fetch(`${baseUrl}/projects`)
-
   if (!response.ok) {
     throw Error('Unable to get projects. Try again later.')
   }
@@ -23,7 +21,7 @@ export const addProject = async (newProject) => {
     }
   };
   const response = await fetch(`${baseUrl}/projects`, options);
-  if (!response.ok) {
+  if (!response.ok && response.status !== 422) {
     throw Error('Unable to add project.')
   };
   const addedProject = await response.json();
@@ -47,7 +45,7 @@ export const addPalette = async (newPalette) => {
     }
   };
     const response = await fetch(`${baseUrl}/palettes`, options);
-    if (!response.ok) {
+    if (!response.ok && response.status !== 422) {
       throw Error('Unable to add palette.')
     };
     const addedPalette = await response.json();
@@ -62,7 +60,7 @@ export const deletePalette = async (paletteId) => {
     }
   };
   const response = await fetch(`${baseUrl}/palettes/${paletteId}`, options);
-  if (!response.ok) {
+  if (!response.ok && response.status !== 404) {
     throw Error('Unable to delete the palette.')
   };
   const removedId = await response.json();
@@ -77,7 +75,7 @@ export const deleteProject = async (projectId) => {
     }
   };
   const response = await fetch(`${baseUrl}/projects/${projectId}`, options);
-  if (!response.ok) {
+  if (!response.ok && response.status !== 404) {
     throw Error('Unable to delete the project and its palettes.')
   };
   const removedId = await response.json();
@@ -95,7 +93,7 @@ export const editProject = async (projectId, newName) => {
     }
   };
   const response = await fetch(`${baseUrl}/projects/${projectId}`, options);
-  if (!response.ok) {
+  if (!response.ok && response.status !== 404 && response.status !== 422) {
     throw Error('Unable to rename the project. Try again later.')
   };
   const updatedProject = await response.json();
@@ -120,9 +118,8 @@ export const editPalette = async (changedPalette) => {
       'content-type': 'application/json'
     }
   };
-  console.log(options)
   const response = await fetch(`${baseUrl}/palettes/${id}`, options);
-  if (!response.ok) {
+  if (!response.ok && response.status !== 404 && response.status !== 422) {
     throw Error('Unable to edit palette. Try again later.')
   }
   const updatedPalette = await response.json()
