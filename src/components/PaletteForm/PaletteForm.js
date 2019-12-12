@@ -86,13 +86,13 @@ class PaletteForm extends Component {
       color5: colors[4].color5,
       project_id: selectedProjectId
     };
-    try {
-      await addPalette(newPalette)
+    const res = await addPalette(newPalette);
+    if (res.error) {
+      this.setState({ error: res.error });
+    } else {
       await updateProjects();
+    }
       this.clearInput('newPaletteName');
-    } catch ({ error }) {
-      this.setState({ error })
-    };
   }
 
   clearInput = (field) => {
@@ -132,7 +132,7 @@ class PaletteForm extends Component {
           className='random'
           onClick={() => this.props.updateColors()}
         >Randomize!</button>
-
+        {this.state.error && <p className='p--project-error'>{this.state.error}</p>}
         <section className='forms'>
           <form>
             <h3>Create a New Project</h3>
@@ -144,13 +144,13 @@ class PaletteForm extends Component {
               placeholder='Enter Project Name'
               onChange={this.handleInputChange}
             />
-            {this.state.error && <p className='p--project-error'>{this.state.error}</p>}
             <button
               onClick={this.handleSubmitProject}
             >Submit</button>
           </form>
           <form>
-            <h3>Add this Palette to a Project</h3>
+            {this.props.oldProjectName  && <h3>{`Editing ${this.state.newPaletteName}`} </h3>}
+            {!this.props.oldProjectName && <h3>Add this Palette to a Project</h3>}
             <select
               onChange={(e) => this.handleDropDownChange(e)}
             >
