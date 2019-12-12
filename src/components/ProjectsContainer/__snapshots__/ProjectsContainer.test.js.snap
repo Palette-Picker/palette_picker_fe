@@ -4,6 +4,9 @@ exports[`ProjectsContainer should match the snapshot 1`] = `
 <section
   className="projects"
 >
+  <h5>
+    Click on any color palette to edit or delete it.
+  </h5>
   <ProjectCard
     handleKeyPress={[MockFunction]}
     handleModal={[MockFunction]}

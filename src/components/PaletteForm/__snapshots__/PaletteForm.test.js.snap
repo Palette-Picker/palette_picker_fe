@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PaletteForm should match the snapshot 1`] = `
-<div>
+<div
+  className="home"
+>
   <section
     className="color-section"
   >
@@ -17,6 +19,7 @@ exports[`PaletteForm should match the snapshot 1`] = `
     >
       #82D173
       <img
+        alt="opened lock"
         className="img--padlock"
         src="padunlocked.png"
       />
@@ -33,6 +36,7 @@ exports[`PaletteForm should match the snapshot 1`] = `
     >
       #ABFAA9
       <img
+        alt="opened lock"
         className="img--padlock"
         src="padunlocked.png"
       />
@@ -49,6 +53,7 @@ exports[`PaletteForm should match the snapshot 1`] = `
     >
       #95A3B3
       <img
+        alt="opened lock"
         className="img--padlock"
         src="padunlocked.png"
       />
@@ -65,6 +70,7 @@ exports[`PaletteForm should match the snapshot 1`] = `
     >
       #4C2C69
       <img
+        alt="opened lock"
         className="img--padlock"
         src="padunlocked.png"
       />
@@ -81,6 +87,7 @@ exports[`PaletteForm should match the snapshot 1`] = `
     >
       #42253B
       <img
+        alt="opened lock"
         className="img--padlock"
         src="padunlocked.png"
       />
