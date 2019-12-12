@@ -46,7 +46,7 @@ describe('PaletteForm', () => {
     }];
   const mockPaletteId = null;
   const mockNewPaletteName = '';
-  const mockOldProjectName = '';
+  let mockOldProjectName = '';
   const mockSelectedProjectId = null;
   const mockPass = jest.fn();
   const mockUpdateColors = jest.fn();
@@ -93,7 +93,7 @@ describe('PaletteForm', () => {
     expect(wrapper.state('newProjectName')).toEqual('A New Project');
   });
 
-  it.skip('should call handleInputChange when input event occurs', () => {
+  it('should call handleInputChange when input event occurs', () => {
     const mockInputChange = { target: { name: 'newProjectName', value: 'A New Project'}};
     wrapper.instance().handleInputChange = jest.fn();
     wrapper.find('.create-project').simulate('change', mockInputChange);
@@ -101,10 +101,9 @@ describe('PaletteForm', () => {
     expect(wrapper.instance().handleInputChange).toHaveBeenCalled();
   });
 
-  it.skip('should call handleSubmitProject when submit is clicked', () => {
+  it('should call handleSubmitProject when submit is clicked', () => {
     wrapper.instance().handleSubmitProject = jest.fn();
     wrapper.find('.submit-btn').simulate('click', mockPreventEvent);
-    // wrapper.instance().forceUpdate();
     expect(wrapper.instance().handleSubmitProject).toHaveBeenCalledWith(mockPreventEvent);
   });
 
@@ -114,16 +113,17 @@ describe('PaletteForm', () => {
     expect(wrapper.instance().decidePaletteVerb).toHaveBeenCalledWith(mockEvent);
   });
 
-  it.skip('should call handleUpdatePalette if oldProjectName has a value after clicking add-btn', () => {
-    let mockOldProjectName = 'Old Name'
+  it('should call handleUpdatePalette if oldProjectName has a value after clicking add-btn', () => {
+    wrapper.setProps({ oldProjectName: 'Old Name' });
     wrapper.instance().handleUpdatePalette = jest.fn();
-    wrapper.instance().decidePaletteVerb(mockEvent);
-    wrapper.instance().forceUpdate();
-    expect(wrapper.instance().handleUpdatePalette).toHaveBeenCalledWith(mockEvent)
+    wrapper.instance().decidePaletteVerb(mockPreventEvent);
+    expect(wrapper.instance().handleUpdatePalette).toHaveBeenCalledWith(mockPreventEvent)
   });
 
   it('should call handleAddPalette if oldProjectName is empty string after clicking add-btn', () => {
-
+    wrapper.instance().handleAddPalette = jest.fn();
+    wrapper.instance().decidePaletteVerb(mockPreventEvent);
+    expect(wrapper.instance().handleAddPalette).toHaveBeenCalledWith(mockPreventEvent);
   });
 
   it('should call updateColors when random btn is clicked', () => {
@@ -143,5 +143,4 @@ describe('PaletteForm', () => {
     wrapper.instance().clearInput('newProjectName');
     expect(wrapper.state('newProjectName')).toEqual('');
   });
-
 });

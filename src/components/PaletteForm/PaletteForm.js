@@ -28,7 +28,6 @@ class PaletteForm extends Component {
     const { updateProjects } = this.props;
     const { newProjectName } = this.state;
     let projectPost = await addProject(newProjectName);
-    console.log(projectPost.error)
     if (projectPost.error) {
       this.setState({error: projectPost.error})
     } else {
@@ -144,11 +143,11 @@ class PaletteForm extends Component {
               type='text' 
               value={this.state.newProjectName}
               placeholder='Enter Project Name'
-              onChange={this.handleInputChange}
+              onChange={(e) => this.handleInputChange(e)}
             />
             <button
               className="submit-btn"
-              onClick={this.handleSubmitProject}
+              onClick={(e) => this.handleSubmitProject(e)}
             >Submit</button>
           </form>
           <form>
@@ -174,7 +173,7 @@ class PaletteForm extends Component {
             />
             <button
               className="add-btn"
-              onClick={e => this.decidePalleteVerb(e)}
+              onClick={e => this.decidePaletteVerb(e)}
             >{!this.props.oldProjectName ? 'Add' : 'Save'}</button>
           </form>
         </section>
