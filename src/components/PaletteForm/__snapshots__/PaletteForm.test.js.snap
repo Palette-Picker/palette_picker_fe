@@ -1,0 +1,146 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PaletteForm should match the snapshot 1`] = `
+<div>
+  <section
+    className="color-section"
+  >
+    <button
+      className="color"
+      key="#82d173"
+      onClick={[Function]}
+      style={
+        Object {
+          "backgroundColor": "#82d173",
+        }
+      }
+    >
+      #82D173
+       is locked: 
+      false
+    </button>
+    <button
+      className="color"
+      key="#abfaa9"
+      onClick={[Function]}
+      style={
+        Object {
+          "backgroundColor": "#abfaa9",
+        }
+      }
+    >
+      #ABFAA9
+       is locked: 
+      false
+    </button>
+    <button
+      className="color"
+      key="#95a3b3"
+      onClick={[Function]}
+      style={
+        Object {
+          "backgroundColor": "#95a3b3",
+        }
+      }
+    >
+      #95A3B3
+       is locked: 
+      false
+    </button>
+    <button
+      className="color"
+      key="#4c2c69"
+      onClick={[Function]}
+      style={
+        Object {
+          "backgroundColor": "#4c2c69",
+        }
+      }
+    >
+      #4C2C69
+       is locked: 
+      false
+    </button>
+    <button
+      className="color"
+      key="#42253b"
+      onClick={[Function]}
+      style={
+        Object {
+          "backgroundColor": "#42253b",
+        }
+      }
+    >
+      #42253B
+       is locked: 
+      false
+    </button>
+  </section>
+  <button
+    className="random"
+    onClick={[Function]}
+  >
+    Randomize!
+  </button>
+  <section
+    className="forms"
+  >
+    <form>
+      <h3>
+        Create a New Project
+      </h3>
+      <input
+        className="create-project"
+        name="newProjectName"
+        onChange={[Function]}
+        placeholder="Enter Project Name"
+        type="text"
+        value=""
+      />
+      <button
+        className="submit-btn"
+        onClick={[Function]}
+      >
+        Submit
+      </button>
+    </form>
+    <form>
+      <h3>
+        Add this Palette to a Project
+      </h3>
+      <select
+        onChange={[Function]}
+      >
+        <option
+          disabled={true}
+          selected={true}
+          value="default"
+        >
+          Choose a Project ...
+        </option>
+        <option
+          key="Colors"
+          selected={false}
+          value={19}
+        >
+          Colors
+        </option>
+      </select>
+      <input
+        className="createPalette"
+        name="newPaletteName"
+        onChange={[Function]}
+        placeholder="Enter New Palette Name"
+        type="text"
+        value=""
+      />
+      <button
+        className="add-btn"
+        onClick={[Function]}
+      >
+        Add
+      </button>
+    </form>
+  </section>
+</div>
+`;

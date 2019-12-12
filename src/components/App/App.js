@@ -38,7 +38,7 @@ class App extends Component {
     }
   }
 
-    colorCheck = () => {
+  colorCheck = () => {
     let { colors } = this.state;
     if (colors.length < 5) {
       while (colors.length < 5) {
