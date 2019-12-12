@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { addProject, addPalette, editPalette } from '../../utils/apiCalls';
+import locked from '../../images/padlocked.png';
+import unlocked from '../../images/padunlocked.png';
 import './PaletteForm.scss';
 
 class PaletteForm extends Component {
@@ -25,13 +27,15 @@ class PaletteForm extends Component {
     e.preventDefault();
     const { updateProjects } = this.props;
     const { newProjectName } = this.state;
-    try {
-      await addProject(newProjectName);
+    let projectPost = await addProject(newProjectName);
+    console.log(projectPost.error)
+    if (projectPost.error) {
+      this.setState({error: projectPost.error})
+    } else {
       await updateProjects();
-      this.clearInput('newProjectName');
-    } catch ({ error }) {
-      this.setState({ error })
-    };
+    }
+    this.clearInput('newProjectName');
+
   }
 
   decidePaletteVerb = (e) => {
@@ -84,13 +88,13 @@ class PaletteForm extends Component {
       color5: colors[4].color5,
       project_id: selectedProjectId
     };
-    try {
-      await addPalette(newPalette)
+    const res = await addPalette(newPalette);
+    if (res.error) {
+      this.setState({ error: res.error });
+    } else {
       await updateProjects();
+    }
       this.clearInput('newPaletteName');
-    } catch ({ error }) {
-      this.setState({ error })
-    };
   }
 
   clearInput = (field) => {
@@ -108,7 +112,7 @@ class PaletteForm extends Component {
             className='color' 
             style={{backgroundColor: hexCode}}
             onClick={() => this.props.toggleLock(i)}>
-            {hexCode.toUpperCase()} is locked: {color.isLocked.toString()}
+        {hexCode.toUpperCase()}{color.isLocked ? <img className='img--padlock' src={locked} /> : <img className='img--padlock' src={unlocked}/> }
         </button>
     }) : null;
 
@@ -130,7 +134,7 @@ class PaletteForm extends Component {
           className='random'
           onClick={() => this.props.updateColors()}
         >Randomize!</button>
-
+        {this.state.error && <p className='p--project-error'>{this.state.error}</p>}
         <section className='forms'>
           <form>
             <h3>Create a New Project</h3>
@@ -148,7 +152,8 @@ class PaletteForm extends Component {
             >Submit</button>
           </form>
           <form>
-            <h3>Add this Palette to a Project</h3>
+            {this.props.oldProjectName  && <h3>{`Editing ${this.state.newPaletteName}`} </h3>}
+            {!this.props.oldProjectName && <h3>Add this Palette to a Project</h3>}
             <select
               onChange={(e) => this.handleDropDownChange(e)}
             >
@@ -169,12 +174,11 @@ class PaletteForm extends Component {
             />
             <button
               className="add-btn"
-              onClick={e => this.decidePaletteVerb(e)}
-            >Add</button>
+              onClick={e => this.decidePalleteVerb(e)}
+            >{!this.props.oldProjectName ? 'Add' : 'Save'}</button>
           </form>
         </section>
       </div>
-
     )
   }
 };
