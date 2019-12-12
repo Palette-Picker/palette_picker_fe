@@ -125,12 +125,12 @@ class PaletteForm extends Component {
 
     return (
 
-      <div>
-        <section className='color-section'>
+      <div className="home">
+        <section className="color-section">
           { colorBtns }
         </section>
         <button 
-          className='random'
+          className="random"
           onClick={() => this.props.updateColors()}
         >Randomize!</button>
         {this.state.error && <p className='p--project-error'>{this.state.error}</p>}

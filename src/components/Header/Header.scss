@@ -1,6 +1,8 @@
 @import './src/variables.scss';
 
 header {
+  height: 80px;
+  margin-top: 10px;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -14,7 +16,6 @@ h1 {
 .nav-link {
   font-size: 2em;
   text-decoration: none;
-  line-height: 5;
   color: $dark-color;
   &:hover {
     color: $highlight-color;
