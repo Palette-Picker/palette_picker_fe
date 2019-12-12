@@ -1,7 +1,6 @@
 import React from 'react';
 import './ProjectCard.scss';
 import close from '../../images/close-icon-svg-4.jpg'
-
 const ProjectCard = ({ project, handleModal, handleKeyPress, handleProjectDelete }) => {
   const { palettes } = project;
   const paletteCards = palettes.map(palette => {
