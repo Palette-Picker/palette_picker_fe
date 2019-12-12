@@ -1,9 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import App from './App';
-import { getProjects } from '../../utils/apiCalls';
-
-jest.mock('../../utils/apiCalls');
 
 describe('App', () => {
   let wrapper
@@ -45,7 +42,7 @@ describe('App', () => {
       projectId: null,
       projectName: '',
       paletteId: null,
-      projects: undefined
+      projects: []
     }
     wrapper.setState({
       colors: ['color1', 'color2'],
@@ -57,4 +54,31 @@ describe('App', () => {
     wrapper.instance().handleModal(mockEvent);
     expect(wrapper.state()).toEqual(expected);
   });
-})
+
+  it('should call passPaletteNameAndColors when handleModal is called', () => {
+
+    const mockEvent = { target: { classList: { contains: jest.fn(() => true) } } };
+    wrapper.instance().passPaletteNameAndColors = jest.fn();
+    wrapper.instance().handleModal(mockEvent);
+    expect(wrapper.instance().passPaletteNameAndColors).toHaveBeenCalled();
+  });
+
+  it('should update state when passPaletteNameAndColors is called', () => {
+    const mockColors = ['color1', 'color2'];
+    const mockProject = { id: 3, name: 'Project' };
+    const mockPaletteName = 'Palette';
+    const mockPaletteId = 45
+    const expected = {
+      colors: mockColors,
+      error: '',
+      modalOpen: false,
+      paletteName: mockPaletteName,
+      projectId: mockProject.id,
+      projectName: mockProject.name,
+      paletteId: mockPaletteId,
+      projects: []
+    }
+    wrapper.instance().passPaletteNameAndColors(mockColors, mockProject, mockPaletteName, mockPaletteId);
+    expect(wrapper.state()).toEqual(expected);
+  });
+});
