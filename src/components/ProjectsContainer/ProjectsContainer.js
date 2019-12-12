@@ -13,6 +13,7 @@ const ProjectsContainer = ({ projects, handleModal, handleKeyPress, handleProjec
   })
   return (
     <section className='projects'>
+      <h5>Click on any color palette to edit or delete it.</h5>
       { projCards }
     </section>
   )

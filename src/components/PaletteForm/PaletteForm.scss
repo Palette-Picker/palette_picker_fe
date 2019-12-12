@@ -14,7 +14,7 @@
 .color {
   height: 250px;
   width: 20%;
-  color: $extra-light-color;
+  color: white;
   font-family: $basic-font;
   font-size: 2.2em;
   border: 2px $dark-color outset;
@@ -26,9 +26,6 @@
   margin: 0 10px;
   &:hover {
     border: 5px $dark-color outset;
-    outline: none;
-  }
-  &:focus {
     outline: none;
   }
 }

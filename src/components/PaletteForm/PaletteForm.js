@@ -34,7 +34,6 @@ class PaletteForm extends Component {
       await updateProjects();
     }
     this.clearInput('newProjectName');
-
   }
 
   decidePaletteVerb = (e) => {
@@ -111,7 +110,7 @@ class PaletteForm extends Component {
             className='color' 
             style={{backgroundColor: hexCode}}
             onClick={() => this.props.toggleLock(i)}>
-        {hexCode.toUpperCase()}{color.isLocked ? <img className='img--padlock' src={locked} /> : <img className='img--padlock' src={unlocked}/> }
+        {hexCode.toUpperCase()}{color.isLocked ? <img className='img--padlock' src={locked} alt="closed lock" /> : <img className='img--padlock' src={unlocked} alt="opened lock"/> }
         </button>
     }) : null;
 
