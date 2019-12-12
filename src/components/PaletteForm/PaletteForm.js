@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { addProject, addPalette, editPalette } from '../../utils/apiCalls';
+import locked from '../../images/padlocked.png';
+import unlocked from '../../images/padunlocked.png';
 import './PaletteForm.scss';
 
 class PaletteForm extends Component {
@@ -110,7 +112,7 @@ class PaletteForm extends Component {
             className='color' 
             style={{backgroundColor: hexCode}}
             onClick={() => this.props.toggleLock(i)}>
-            {hexCode.toUpperCase()} is locked: {color.isLocked.toString()}
+        {hexCode.toUpperCase()}{color.isLocked ? <img className='img--padlock' src={locked} /> : <img className='img--padlock' src={unlocked}/> }
         </button>
     }) : null;
 
