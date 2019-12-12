@@ -88,4 +88,11 @@ describe('App', () => {
     wrapper.find('Link').at(0).simulate('click', mockEvent);
     expect(wrapper.instance().handleModal).toHaveBeenCalledWith(mockEvent);
   });
+
+    it('should call paletteDeleteHandler when the Delete Palette modal button is clicked', () => {
+    const mockEvent = { preventDefault: jest.fn(), persist: jest.fn() }
+    wrapper.instance().paletteDeleteHandler = jest.fn();
+    wrapper.find('.btn--delete-palette').simulate('click', mockEvent);
+    expect(wrapper.instance().paletteDeleteHandler).toHaveBeenCalledWith(mockEvent);
+  });
 });
