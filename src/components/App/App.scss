@@ -14,9 +14,60 @@
   background: #ffffff;
   display: flex;
   flex-direction: column;
-  height: 45%;
+  font-family: $basic-font;
+  height: 35%;
+  justify-content: center;
   left: 30%;
+  padding: 10px;
   position: fixed;
+  text-align: center;
   top: 35%;
   width: 40%;
+}
+
+h2 {
+  width: 80%;
+}
+
+.section--btn-holder {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  button {
+    background-color: $extra-light-color;
+    border: 1px $dark-color solid;
+    border-radius: 5px;
+    color: $dark-color;
+    font-family: $basic-font;
+    font-size: 1em;
+    height: 30px;
+    width: 32%;
+    &:hover {
+      color: $extra-light-color;
+      cursor: pointer;
+    }
+  }
+}
+
+.modal-link {
+  color: $dark-color;
+  text-decoration: none;
+  width: 100%;
+  &:hover {
+    background-color: $highlight-color;
+    color: $extra-light-color;
+  }
+}
+
+.btn--confirm-edit:hover {
+  background-color: $highlight-color;
+  color: white;
+}
+
+.btn--cancel-edit:hover {
+  background-color: $dark-color;
+}
+
+.btn--delete-palette:hover {
+  background-color: $error-color;
 }

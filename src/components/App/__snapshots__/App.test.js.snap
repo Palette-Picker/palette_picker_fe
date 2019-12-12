@@ -43,6 +43,7 @@ exports[`App should match the snapshot 1`] = `
         className="btn--confirm-edit"
       >
         <Link
+          className="modal-link"
           name="edit"
           onClick={[Function]}
           to="/"

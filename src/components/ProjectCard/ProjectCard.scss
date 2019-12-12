@@ -1,15 +1,18 @@
 @import './src/variables.scss';
 
 .project-card {
+  height: 450px;
   width: 40%;
   background-color: white;
-  margin-top: 45px;
+  margin-top: 40px;
   display: flex;
   flex-direction: column;
-  // align-items: center;
-  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
   border: 2px $dark-color outset;
   border-radius: 5px;
+  overflow-y:auto
 }
 
 .palette {
@@ -26,6 +29,8 @@
 .five-colors {
   display: flex;
   border-radius: 5px;
+  display: flex;
+  justify-content: center;
 }
 
 .delete {
@@ -42,6 +47,7 @@
   display: inline-block;
   &:hover {
     border: 2px $error-color solid;
+    cursor: pointer;
   }
 }
 
@@ -52,6 +58,7 @@
 .delete:hover .delete-text {
   visibility: visible;
   color: $error-color;
+  cursor: pointer;
   display: inline;
   font-size: 1rem;
   font-family: $basic-font;
@@ -61,13 +68,15 @@
   background: $extra-light-color;
   display: block;
   content:'Click to Edit, Press "Enter" to save';
+  cursor: pointer;
   font-size: 1rem;
   font-family: $basic-font;
 }
 
 h2 {
   font-size: 2em;
-  margin-top: 0;
+  margin: 0 auto;
+  text-decoration: underline;
 }
 
 h4 {

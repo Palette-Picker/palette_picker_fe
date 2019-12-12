@@ -26,6 +26,7 @@
   margin: 0 10px;
   &:hover {
     border: 5px $dark-color outset;
+    cursor: pointer;
     outline: none;
   }
 }
@@ -47,6 +48,7 @@
   &:hover {
     background-color: $dark-color;
     color: $extra-light-color;
+    cursor: pointer;
     border: 4px $dark-color outset;
   }
 }
@@ -80,6 +82,7 @@ form {
     &:hover {
       background-color: $dark-color;
       color: $extra-light-color;
+      cursor: pointer;
       border: 4px $dark-color outset;
     }
   }
